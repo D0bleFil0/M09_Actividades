@@ -16,6 +16,7 @@ public class Conversor {
         System.out.println(resultado);
     }
 
+    // Funcion para convertir un numero decimal a binario
     public static String decimalABinario(int numero) {
         String binario = "";
         while (numero > 0) {
@@ -26,7 +27,7 @@ public class Conversor {
             }
             numero = numero / 2;
         }
-        // completar con ceros a la izquierda
+        // Bloque para completar con ceros a la izquierda
         int longitud = binario.length();
         for (int i = 0; i < 4 - longitud; i++) {
             binario = "0" + binario;
