@@ -11,7 +11,7 @@ class Fibonacci4Hilos extends Thread {
                 + fibonacci(Integer.parseInt(getName())));
     }
 
-    // Calculo de la sucesion de Fibonacci
+    // Metodo de Fibonacci4Hilos para calcular el numero de Fibonacci
     public static int fibonacci(int n) {
         if (n == 0) {
             return 0;
@@ -25,7 +25,7 @@ class Fibonacci4Hilos extends Thread {
      // Clase principal que contiene el metodo main
     public static class Hilos {
         public static void main(String[] args) throws InterruptedException {
-            
+
             // Try with resources para cerrar el scanner automaticamente y los hilos
             try (Scanner sc = new Scanner(System.in)) { 
                 int[] numeros = new int[4];
