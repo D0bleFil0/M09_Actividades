@@ -1,18 +1,19 @@
-## Getting Started
+## [DAM - M09] Repositorio Actividades de la asignatura de Programación de procesos y servicios
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Este repositorio lo he creado para poder subir las actividades de la asignatura de Programación de procesos y servicios. Aquí se irán subiendo las actividades que se vayan realizando a lo largo del semestre. 
 
-## Folder Structure
+## Estructura del repositorio
 
-The workspace contains two folders by default, where:
+El espacio de trabajo del repositorio está organizado de la siguiente manera:
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+- `src`: la carpeta donde se encuentran los archivos de código fuente de las actividades.
+- `lib`: la carpeta donde se encuentran los archivos de código fuente de las librerías.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+Los ficheros compilados se encuentran en la carpeta `bin` y los ficheros de configuración en la carpeta `etc`, si se requieren.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+> Si quieres personalizar la estructura del repositorio, puedes modificar el fichero `.vscode/settings.json` y el fichero `.gitignore`.
 
-## Dependency Management
+## Licencia
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Este repositorio está bajo la licencia [Gnu General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/).
+
