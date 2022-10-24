@@ -32,17 +32,18 @@ public class Principal {
             pw.println(lineaEnvio);
             pw.flush();
 
-            // Comunicacion entre proceso padre y proceso hijo
+            // Comunicacion entre proceso hijo y proceso padre
             InputStream is = p.getInputStream();
             BufferedReader br2 = new BufferedReader(new InputStreamReader(is));
             String lineaRecibida = br2.readLine();
             System.out.println(lineaRecibida);
 
-            // Comunicacion entre proceso padre y proceso hijo
+            // Evaluacion de la condicion de salida
             lineaEnvio = br.readLine();
 
             if (lineaEnvio.equalsIgnoreCase("fin")) {
                 break loop;
+                
             }
         }
     }
