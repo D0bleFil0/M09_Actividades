@@ -39,6 +39,8 @@ public class Fibonacci4Hilos {
         hilo3.join();
         hilo4.start();
         hilo4.join();
+
+        //Cierre del scanner
         sc.close();
     }
 } 
