@@ -24,7 +24,7 @@ public class Fibonacci4Hilos {
             numeros[i] = sc.nextInt();
         }
 
-        //Creacion de los hilos con lambdas con valores del array y llamada a la funcion fibonacci
+        //Creacion de los hilos con lambdas usando valores del array y llamada a la funcion fibonacci
         Thread hilo1 = new Thread(() -> System.out.println("El numero " + numeros[0] + " de la sucesion de Fibonacci es: " + fibonacci(numeros[0])));
         Thread hilo2 = new Thread(() -> System.out.println("El numero " + numeros[1] + " de la sucesion de Fibonacci es: " + fibonacci(numeros[1])));
         Thread hilo3 = new Thread(() -> System.out.println("El numero " + numeros[2] + " de la sucesion de Fibonacci es: " + fibonacci(numeros[2])));
