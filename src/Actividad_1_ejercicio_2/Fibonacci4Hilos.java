@@ -2,7 +2,7 @@ package Actividad_1_ejercicio_2;
 
 import java.util.Scanner;
 
-public class Fibonacci4Hilos {
+public class Fibonacci4Hilos extends Thread {
     
     //Calculo de la sucesion de Fibonacci
     public static int fibonacci(int n) {
