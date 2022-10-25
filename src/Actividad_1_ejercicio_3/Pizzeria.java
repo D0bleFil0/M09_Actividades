@@ -105,8 +105,7 @@ class Repartidor extends Thread {
     // Metodo para consumir pizzas, recurso compartido por Pizzeria
     private Pizzeria pizzas;
 
-    // Constructor de la clase Repartidor que recibe como parametro el recurso
-    // compartido
+    // Constructor de la clase Repartidor que recibe como parametro el recurso compartido
     public Repartidor(Pizzeria pizzas, String nombre) {
         super(nombre);
         this.pizzas = pizzas;
@@ -129,7 +128,6 @@ class Repartidor extends Thread {
 
                 e.printStackTrace();
             } // Tiempo de espera aleatorio en bloque try catch ya que el metodo sleep puede lanzar una excepcion de tipo checked
-
         }
     }
 }
