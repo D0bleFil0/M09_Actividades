@@ -15,6 +15,7 @@ public class Pizzeria {
                 try {
                     // El hilo repartidor espera
                     wait();
+     
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -28,9 +29,9 @@ public class Pizzeria {
         // Metodo offer para agregar pizzas a la cola
         pizzas.offer(unidades);
         //Imprime las pizzas que hay en la cola
-        System.out.printf("------------------------------\n");
+        System.out.printf("++++++++++++++++++++++++++++++++\n");
         System.out.printf("Pizza(s) en cola: %d", pizzas.size());
-        System.out.printf("\n------------------------------\n");
+        System.out.printf("\n++++++++++++++++++++++++++++++++\n");
         // Notificacion de todos los hilos para que se ejecuten en orden de llegada a la cola
         notifyAll();
         // Imprime el nombre del hilo y la cantidad de pizzas producidas
