@@ -28,7 +28,7 @@ public class Pizzeria {
         // Metodo offer para agregar pizzas a la cola
         pizzas.offer(unidades);
         //Imprime las pizzas que hay en la cola
-        System.out.println("Hay " + pizzas.size() + " pizzas en la cola");
+        System.out.println("[Hay " + pizzas.size() + " pizzas en la cola]");
         // Notificacion de todos los hilos para que se ejecuten en orden de llegada a la cola
         notifyAll();
         // Imprime el nombre del hilo y la cantidad de pizzas producidas
