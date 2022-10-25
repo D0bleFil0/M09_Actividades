@@ -115,18 +115,16 @@ class Repartidor extends Thread {
     @Override
     public void run() {
         while (true) {
+            
             try {
                 // Variable que recibe el valor de la pizza consumida
                 int pizza = pizzas.consumir(new Random().nextInt(6)+1); 
                 // Imprime el nombre del hilo y la pizza consumida
                 System.out.println(Thread.currentThread().getName() + " se lleva " + pizza + " pizzas");
-                // Si no hay pizzas en la cola, el hilo espera
-                if (pizza == 0) {
-                    // Tiempo de espera aleatorio en bloque try catch ya que el metodo sleep puede lanzar una excepcion de tipo checked
-                    Thread.sleep(new Random().nextInt(2000)+500);
-                    System.out.println("Cliente está esperando...");
-                }
-            } catch (InterruptedException e) {
+                // Tiempo de espera aleatorio en bloque try catch ya que el metodo sleep puede lanzar una excepcion de tipo checked
+                Thread.sleep(new Random().nextInt(2000)+500);
+                   
+                } catch (InterruptedException e) {
 
                 e.printStackTrace();
             } // Tiempo de espera aleatorio en bloque try catch ya que el metodo sleep puede lanzar una excepcion de tipo checked
