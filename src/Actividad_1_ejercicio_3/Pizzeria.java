@@ -9,18 +9,17 @@ public class Pizzeria {
     private LinkedList<Integer> pizzas = new LinkedList<>();
 
     // Metodo para consumir pizzas con synchronized para que solo un hilo pueda acceder a este metodo a la vez
-    public synchronized int consumir(int cantidad) throws InterruptedException {
-        // Imprime el nombre del hilo y el mensaje de que no hay suficientes pizzas
-        System.out.println("Cliente ha pedido " + (cantidad - pizzas.size()) + " pizzas");
-        // Ciclo while para que el hilo cliente espere mientras no haya suficientes pizzas en la cola
-        while (pizzas.size() < cantidad) {           
-            try {
-                // El hilo cliente espera
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    public synchronized int consumir(int cantidad) throws InterruptedException {           
+            // Ciclo while para que el hilo repartidor espere mientras no haya suficientes pizzas en la cola
+            while (pizzas.size() < cantidad || pizzas.size() == 0) {           
+                try {
+                    // El hilo repartidor espera
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
-        }
+        
         return pizzas.poll(); // Metodo poll para eliminar la pizza que sale del horno de la cola
     }
 
@@ -46,26 +45,26 @@ public class Pizzeria {
     // Objeto de tipo Pizzeria con el recurso compartido
     Pizzeria pizzas = new Pizzeria();
 
-    // Objetos de tipo Cliente que recibe como parametro el recurso compartido
-    Cliente cliente1 = new Cliente(pizzas, "Cliente 1");
-    Cliente cliente2 = new Cliente(pizzas, "Cliente 2");
-    Cliente cliente3 = new Cliente(pizzas, "Cliente 3");
-    Cliente cliente4 = new Cliente(pizzas, "Cliente 4");
-    Cliente cliente5 = new Cliente(pizzas, "Cliente 5");
+    // Objetos de tipo Repartidor que recibe como parametro el recurso compartido
+    Repartidor repartirdor1 = new Repartidor(pizzas, "Repartidor 1");
+    Repartidor repartirdor2 = new Repartidor(pizzas, "Repartidor 2");
+    Repartidor repartirdor3 = new Repartidor(pizzas, "Repartidor 3");
+    Repartidor repartirdor4 = new Repartidor(pizzas, "Repartidor 4");
+    Repartidor repartirdor5 = new Repartidor(pizzas, "Repartidor 5");
+
 
     // Objetos de tipo Horno que recibe como parametro el recurso compartido
     Horno horno1 = new Horno(pizzas, "Horno 1");
     Horno horno2 = new Horno(pizzas, "Horno 2");
 
-    // Inicio de los hilos
+    // Inicio de los hilos de los repartidores
     horno1.start(); 
     horno2.start(); 
-    cliente1.start(); 
-    cliente2.start(); 
-    cliente3.start(); 
-    cliente4.start(); 
-    cliente5.start(); 
-    
+    repartirdor1.start();
+    repartirdor2.start();
+    repartirdor3.start();
+    repartirdor4.start();
+    repartirdor5.start();
     }
 }
 
@@ -97,15 +96,15 @@ class Horno extends Thread {
     }
 }
 
-// Clase Cliente que hereda de la clase Thread
-class Cliente extends Thread {
+// Clase Repartidor que hereda de la clase Thread
+class Repartidor extends Thread {
 
     // Metodo para consumir pizzas, recurso compartido por Pizzeria
     private Pizzeria pizzas;
 
-    // Constructor de la clase Cliente que recibe como parametro el recurso
+    // Constructor de la clase Repartidor que recibe como parametro el recurso
     // compartido
-    public Cliente(Pizzeria pizzas, String nombre) {
+    public Repartidor(Pizzeria pizzas, String nombre) {
         super(nombre);
         this.pizzas = pizzas;
     }
@@ -117,7 +116,7 @@ class Cliente extends Thread {
             try {
                 int pizza = pizzas.consumir(new Random().nextInt(5)+1); // Variable que recibe el valor de la pizza consumida
                 // Imprime el nombre del hilo y la pizza consumida
-                System.out.println("Cliente se lleva " + pizza + " pizzas");
+                System.out.println(Thread.currentThread().getName() + " se lleva " + pizza + " pizzas");
                 // Si no hay pizzas en la cola, el hilo espera
                 if (pizza == 0) {
                     // Tiempo de espera aleatorio en bloque try catch ya que el metodo sleep puede lanzar una excepcion de tipo checked
