@@ -86,7 +86,7 @@ class Horno extends Thread {
         while(true){
             try {
                 // Metodo para producir una cantidad aleatoria de pizzas entre 1 y 5
-                pizzas.producir(new Random().nextInt(2)+1);
+                pizzas.producir(new Random().nextInt(4)+1);
                 // Tiempo de espera aleatorio en bloque try catch ya que el metodo sleep puede lanzar una excepcion de tipo checked 
                 Thread.sleep(new Random().nextInt(10000)+2000); 
             } catch (InterruptedException e) {
@@ -114,7 +114,8 @@ class Repartidor extends Thread {
     public void run() {
         while (true) {
             try {
-                int pizza = pizzas.consumir(new Random().nextInt(5)+1); // Variable que recibe el valor de la pizza consumida
+                // Variable que recibe el valor de la pizza consumida
+                int pizza = pizzas.consumir(new Random().nextInt(6)+1); 
                 // Imprime el nombre del hilo y la pizza consumida
                 System.out.println(Thread.currentThread().getName() + " se lleva " + pizza + " pizzas");
                 // Si no hay pizzas en la cola, el hilo espera
