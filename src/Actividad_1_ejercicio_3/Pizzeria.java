@@ -20,8 +20,8 @@ public class Pizzeria {
                     e.printStackTrace();
                 }
             }
-        
-        return pizzas.poll(); // Metodo poll para eliminar la pizza que sale del horno de la cola
+        // Metodo poll para eliminar la pizza que sale del horno y se consume    
+        return pizzas.poll(); 
     }
 
     // Metodo para producir pizzas con synchronized para que solo un hilo pueda acceder a este metodo a la vez
