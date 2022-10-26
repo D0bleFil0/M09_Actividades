@@ -58,16 +58,16 @@ public class Pizzeria {
 
     // Objetos de tipo Horno que recibe como parametro el recurso compartido
     Horno horno1 = new Horno(pizzas, "Horno 1");
-    Horno horno2 = new Horno(pizzas, "Horno 2");
+    //Horno horno2 = new Horno(pizzas, "Horno 2");
 
-    // Inicio de los hilos de los repartidores
-    horno1.start(); 
-    horno2.start(); 
+    // Inicio de los hilos de los repartidores     
     repartirdor1.start();
     repartirdor2.start();
     repartirdor3.start();
     repartirdor4.start();
     repartirdor5.start();
+    horno1.start(); 
+    //horno2.start();
     }
 }
 
