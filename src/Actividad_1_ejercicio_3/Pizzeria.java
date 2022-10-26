@@ -32,6 +32,7 @@ public class Pizzeria {
         System.out.printf("++++++++++++++++++++++++++++++++\n");
         System.out.printf("Pizza(s) en cola: %d", pizzas.size());
         System.out.printf("\n++++++++++++++++++++++++++++++++\n");
+        
         // Notificacion de todos los hilos para que se ejecuten en orden de llegada a la cola
         notifyAll();
         // Imprime el nombre del hilo y la cantidad de pizzas producidas
@@ -58,7 +59,7 @@ public class Pizzeria {
 
     // Objetos de tipo Horno que recibe como parametro el recurso compartido
     Horno horno1 = new Horno(pizzas, "Horno 1");
-    //Horno horno2 = new Horno(pizzas, "Horno 2");
+    Horno horno2 = new Horno(pizzas, "Horno 2");
 
     // Inicio de los hilos de los repartidores     
     repartirdor1.start();
@@ -67,7 +68,7 @@ public class Pizzeria {
     repartirdor4.start();
     repartirdor5.start();
     horno1.start(); 
-    //horno2.start();
+    horno2.start();
     }
 }
 
@@ -83,8 +84,7 @@ class Horno extends Thread {
         this.pizzas = pizzas;
     }
 
-     // Metodo run sobreescrito para ejecutar el hilo en ciclo infinito
-    @Override
+    // Metodo run sobreescrito para ejecutar el hilo en ciclo infinito
     public void run() {
         while(true){
             try {
@@ -112,7 +112,6 @@ class Repartidor extends Thread {
     }
 
     // Metodo run sobreescrito para ejecutar el hilo en ciclo infinito
-    @Override
     public void run() {
         while (true) {
             
