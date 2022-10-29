@@ -1,3 +1,5 @@
+// Pizzeria.java */
+
 package actividad_1_ejercicio_3;
 
 import java.util.LinkedList;
