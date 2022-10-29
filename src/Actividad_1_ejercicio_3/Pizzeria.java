@@ -1,4 +1,4 @@
-package Actividad_1_ejercicio_3;
+package actividad_1_ejercicio_3;
 
 import java.util.LinkedList;
 import java.util.Random; 
