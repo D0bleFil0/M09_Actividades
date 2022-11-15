@@ -1,6 +1,6 @@
 // Cliente.java
 
-package Actividad_2_ejercicio_0;
+package actividad_2_ejercicio_0;
 
 import java.io.BufferedReader;
 import java.io.IOException;
