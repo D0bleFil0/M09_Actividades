@@ -10,7 +10,6 @@ El espacio de trabajo del repositorio está organizado de la siguiente manera:
 - `lib`: la carpeta donde se encuentran los archivos de código fuente de las librerías.
 - `test`: la carpeta donde se encuentran los artefactos compilados para testearlos.
 
-Los ficheros compilados se encuentran en la carpeta `bin` y los ficheros de configuración en la carpeta `etc`, si se requieren.
 
 > Si quieres personalizar la estructura del repositorio, puedes modificar el fichero `.vscode/settings.json` y el fichero `.gitignore`.
 
