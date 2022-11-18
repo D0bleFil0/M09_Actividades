@@ -1,4 +1,4 @@
-// Cliente.java
+// Cliente.java 
 
 package Actividad_2_ejercicio_0;
 
