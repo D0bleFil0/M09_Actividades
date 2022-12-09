@@ -139,6 +139,13 @@ public class Ahorcado {
             System.out.println("");
             System.out.println("¡Has ganado!");
             System.out.println("");
+            // Reinicia partida
+            System.out.println("¿Quieres jugar otra vez? (s/n)");
+            String respuesta = sc.nextLine();
+            if (respuesta.equals("s")) {
+                main(args);
+            }
+
         } else {
             // Borrar la pantalla y mostrar mensaje de derrota con el ahorcado completo
             System.out.print("\033[H\033[2J");
@@ -151,6 +158,12 @@ public class Ahorcado {
             System.out.print("\nLa palabra era: " + palabra);
             System.out.println("");
             System.out.println("");
+            // Reinicia partida
+            System.out.println("¿Quieres jugar otra vez? (s/n)");
+            String respuesta = sc.nextLine();
+            if (respuesta.equals("s")) {
+                main(args);
+            }
         }
     }
 }
