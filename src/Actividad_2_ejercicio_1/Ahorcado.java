@@ -92,6 +92,7 @@ public class Ahorcado {
                     acierto = true;
                 }
             }
+            
             // Si no se ha acertado la letra, se dibuja una parte del ahorcado usando case-switch
             if (!acierto) {
                 intentos--;
@@ -143,8 +144,8 @@ public class Ahorcado {
             // Reinicia partida
             System.out.println("¿Quieres jugar otra vez? (s/n)");
             String respuesta = sc.nextLine();
-            if (respuesta.equals("s")) {
-                main(args);
+            if (respuesta.equalsIgnoreCase("s")) {
+                main(args);        
             }
 
         } else {
@@ -162,9 +163,12 @@ public class Ahorcado {
             // Reinicia partida
             System.out.println("¿Quieres jugar otra vez? (s/n)");
             String respuesta = sc.nextLine();
-            if (respuesta.equals("s")) {
-                main(args);
+            sc.close();
+            // si es igual a s ignorar mayusculas y minusculas
+            if (respuesta.equalsIgnoreCase("s")) {
+                main(args);        
             }
         }
     }
+
 }
