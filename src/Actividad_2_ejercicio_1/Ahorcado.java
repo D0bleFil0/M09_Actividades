@@ -72,6 +72,7 @@ public class Ahorcado {
             // borrar la pantalla y dibujar el ahorcado
             System.out.print("\033[H\033[2J");
             System.out.println("Intentos: " + intentos);
+            System.out.println("");
             for (int i = 0; i < ahorcado.length; i++) {
                 System.out.println(ahorcado[i]);
             }
