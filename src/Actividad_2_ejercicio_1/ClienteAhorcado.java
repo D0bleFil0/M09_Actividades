@@ -9,44 +9,62 @@ import java.util.Scanner;
 
   
 public class ClienteAhorcado {
-
+    // variables para el cliente
     private static Socket socket;
     private static PrintWriter out;
     private static BufferedReader in;
     private static int puerto = 5050;
   // metodo main para el cliente
     public static void main(String[] args) {
+        //Try catch para el cliente
         try {
+            //creamos el socket
             socket = new Socket("localhost", puerto);
+            //creamos el out y el in
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            //creamos el scanner
             Scanner sc = new Scanner(System.in);
+            //creamos el array de palabras y elegimos una aleatoriamente desde el metodo elegirPalabra del servidor y lo guardamos en la variable palabra
             String palabra = in.readLine();
+            //creamos el array de letras y lo guardamos en la variable letras
             String[] letras = new String[palabra.length()];
+            //creamos el array del ahorcado y lo guardamos en la variable ahorcado
             String[] ahorcado = crearArrayAhorcado();
+
+            //creamos las variables intentos y acertado
             int intentos = 0;
             boolean acertado = false;
             String letra = "";
+            
+            //bucle para que el cliente juegue
             while (intentos < 6 && !acertado) {
                 mostrarAhorcado(ahorcado);
                 mostrarLetras(letras);
                 System.out.println("Introduce una letra:");
+                //leemos la letra que introduce el cliente
                 letra = sc.nextLine();
+                //enviamos la letra al servidor
                 out.println(letra);
+                //buscamos la letra en la palabra y si esta la guardamos en el array de letras
                 if (comprobarLetra(letra, palabra)) {
                     for (int i = 0; i < palabra.length(); i++) {
                         if (palabra.charAt(i) == letra.charAt(0)) {
                             letras[i] = letra;
                         }
                     }
+                    //comprobamos si se ha ganado
                     acertado = comprobarGanador(letras);
                 } else {
+                    //si no esta la letra en la palabra cambiamos el ahorcado y aumentamos el numero de intentos
                     intentos++;
                     ahorcado = cambiarAhorcado(ahorcado, intentos);
                 }
             }
+            //mostramos el ahorcado y las letras
             mostrarAhorcado(ahorcado);
             mostrarLetras(letras);
+            //mostramos si se ha ganado o perdido y cerramos el socket
             if (acertado) {
                 System.out.println("Has ganado!");
             } else {
@@ -58,6 +76,7 @@ public class ClienteAhorcado {
         } catch (Exception e) {
             e.printStackTrace();    }
     }
+    
     // metodo para crear el array del ahorcado
     public static String[] crearArrayAhorcado() {
         String[] ahorcado = new String[8];
