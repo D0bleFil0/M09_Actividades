@@ -1,168 +1,142 @@
 package Actividad_2_ejercicio_1;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Random;
 import java.util.Scanner;
 
+//Clase principal del programa servidor para jugar al ahorcado con un cliente y un servidor
 public class ServidorAhorcado {
 
-    // metodo para elegir una palabra aleatoria del diccionario
-    public static String elegirPalabra(String[] palabras) {
-        Random r = new Random();
-        int indice = r.nextInt(palabras.length);
-        String palabra = palabras[indice];
-        return palabra;
-    }
-
-    // metodo para crear un array de letras con tantas posiciones como letras tenga
-    // la palabra
-    public static String[] crearArrayLetras(String palabra) {
-        String[] letras = new String[palabra.length()];
-        return letras;
-    }
-
-    // metodo para crear un array de strings para dibujar el ahorcado
-    public static String[] crearArrayAhorcado() {
-        String[] ahorcado = new String[6];
-        ahorcado[0] = "  +---+";
-        ahorcado[1] = "  |   |";
-        ahorcado[2] = "      |";
-        ahorcado[3] = "      |";
-        ahorcado[4] = "      |";
-        ahorcado[5] = "========";
-        return ahorcado;
-    }
-
-    // metodo para mostrar el ahorcado
-    public static void mostrarAhorcado(String[] ahorcado) {
-        for (int i = 0; i < ahorcado.length; i++) {
-            System.out.println(ahorcado[i]);
-        }
-    }
-
-    // metodo para mostrar las letras
-    public static void mostrarLetras(String[] letras) {
-        for (int i = 0; i < letras.length; i++) {
-            System.out.print(letras[i] + " ");
-        }
-        System.out.println();
-    }
-
-    // metodo para comprobar si la letra esta en la palabra
-    public static boolean comprobarLetra(String letra, String palabra) {
-        boolean esta = false;
-        for (int i = 0; i < palabra.length(); i++) {
-            if (letra.equals(palabra.substring(i, i + 1))) {
-                esta = true;
-            }
-        }
-        return esta;
-    }
-
-    // metodo para comprobar si se ha ganado
-    public static boolean comprobarVictoria(String[] letras) {
-        boolean victoria = true;
-        for (int i = 0; i < letras.length; i++) {
-            if (letras[i].equals("_")) {
-                victoria = false;
-            }
-        }
-        return victoria;
-    }
-
-    // metodo del juego con conexion al cliente
-    public static void juego(String[] palabras, Socket clienteSocket) {
+    // Método principal del programa
+    public static void main(String[] args) throws IOException {
+        // Crear un socket para escuchar en el puerto 1234
+        ServerSocket servidor = new ServerSocket();
+        // Crear un socket para escuchar en el puerto 1234
+        InetSocketAddress addr = new InetSocketAddress("localhost", 1234);
+        servidor.bind(addr);
+        // Crear un socket para escuchar en el puerto 1234
+        System.out.println("Esperando cliente...");
+        // Crear un socket para escuchar en el puerto 1234
+        Socket cliente = servidor.accept();
+        // Crear un objeto para enviar datos al cliente
+        PrintWriter salida = new PrintWriter(cliente.getOutputStream(), true);
+        // Crear un objeto para recibir datos del cliente
+        BufferedReader entrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
+        // Crear un array de palabras con 100 posiciones posibles
+        String[] palabras = new String[100];
+        // Variable para guardar el indice del array
+        int indice = 0;
+        // Leer el fichero de palabras y guardarlas en el array
         try {
-            String palabra = elegirPalabra(palabras);
-            String[] letras = crearArrayLetras(palabra);
-            for (int i = 0; i < letras.length; i++) {
-                letras[i] = "_";
+            // Obtener ruta del fichero
+            String ruta = ServidorAhorcado.class.getResource("palabras.txt").getPath();
+            // Crear un objeto para leer el fichero
+            Scanner lector = new Scanner(new java.io.File(ruta));
+            // Leer el fichero de palabras y guardarlas en el array
+            while (lector.hasNext()) {
+                palabras[indice] = lector.next();
+                indice++;
             }
-            String[] ahorcado = crearArrayAhorcado();
-            boolean victoria = false;
-            int fallos = 0;
-            boolean esta;
-            BufferedReader in = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clienteSocket.getOutputStream()));
-            Scanner sc = new Scanner(System.in);
-            String inputLine;
-            while (!victoria && fallos < 6) {
-                out.write("La palabra es: ");
-                out.newLine();
-                out.flush();
-                mostrarLetras(letras);
-                out.write("El ahorcado es: ");
-                out.newLine();
-                out.flush();
-                mostrarAhorcado(ahorcado);
-                out.write("Introduce una letra: ");
-                out.newLine();
-                out.flush();
-                String letra = in.readLine();
-                esta = comprobarLetra(letra, palabra);
-                if (esta) {
-                    out.write("La letra " + letra + " esta en la palabra");
-                    out.newLine();
-                    out.flush();
-                    for (int i = 0; i < palabra.length(); i++) {
-                        if (letra.equals(palabra.substring(i, i + 1))) {
-                            letras[i] = letra;
-                        }
+            // Cerrar el fichero
+            lector.close();
+        } catch (Exception e) {
+            System.out.println("Error al leer el fichero de palabras");
+        }
+        // Crear un array de caracteres para guardar la palabra a adivinar
+        char[] palabra = new char[100];
+        // Crear un array de caracteres para guardar la palabra a mostrar
+        char[] palabra_mostrar = new char[100];
+        // Crear un array de caracteres para guardar las letras introducidas
+        char[] letras = new char[100];
+        // Variable para guardar el indice del array
+        int indice_letras = 0;
+        // Variable para guardar el numero de fallos
+        int fallos = 0;
+        // Variable para guardar el estado del juego
+        String estado = "continuar";
+        // Bucle principal del juego
+        while (true) {
+            // Generar una palabra aleatoria
+            int aleatorio = (int) (Math.random() * indice);
+            // Guardar la palabra en el array de caracteres
+            palabra = palabras[aleatorio].toCharArray();
+            // Guardar la palabra a mostrar en el array de caracteres
+            palabra_mostrar = palabras[aleatorio].toCharArray();
+            // Bucle para ocultar las letras de la palabra
+            for (int i = 0; i < palabra_mostrar.length; i++) {
+                palabra_mostrar[i] = '_';
+            }
+            // Bucle principal del juego
+            while (true) {
+                // Mostrar el estado del ahorcado
+                for (int i = 0; i < 6; i++) {
+                    if (i == fallos) {
+                        salida.println("X");
+                    } else {
+                        salida.println(" ");
                     }
-                    victoria = comprobarVictoria(letras);
-                } else {
-                    out.write("La letra " + letra + " no esta en la palabra");
-                    out.newLine();
-                    out.flush();
-                    ahorcado[fallos + 2] = "  O   |";
+                }
+                // Mostrar la palabra a adivinar
+                salida.println(palabra_mostrar);
+                // Leer la letra introducida por el usuario
+                String letra = entrada.readLine();
+                // Guardar la letra en el array de caracteres
+                letras[indice_letras] = letra.charAt(0);
+                // Variable para guardar si la letra esta en la palabra
+                boolean esta = false;
+                // Bucle para comprobar si la letra esta en la palabra
+                for (int i = 0; i < palabra.length; i++) {
+                    if (palabra[i] == letra.charAt(0)) {
+                        palabra_mostrar[i] = letra.charAt(0);
+                        esta = true;
+                    }
+                }
+                // Si la letra no esta en la palabra aumentar el numero de fallos
+                if (!esta) {
                     fallos++;
                 }
+                // Si el numero de fallos es 6 el estado es "perder"
+                if (fallos == 6) {
+                    estado = "perder";
+                }
+                // Si la palabra a mostrar es igual a la palabra el estado es "ganar"
+                if (String.valueOf(palabra_mostrar).equals(String.valueOf(palabra))) {
+                    estado = "ganar";
+                }
+                // Enviar el estado del juego al cliente
+                salida.println(estado);
+                // Si el estado es "perder" o "ganar" terminar el juego
+                if
+                (estado.equals("perder") || estado.equals("ganar")) {
+                    break;
+                }
+                // Incrementar el indice del array de letras
+                indice_letras++;
             }
-            if (victoria) {
-                out.write("Enhorabuena, has ganado");
-                out.newLine();
-                out.flush();
+            // Si el estado es "perder" mostrar la palabra a adivinar
+            if (estado.equals("perder")) {
+                salida.println(palabra);
+            }
+            // Leer la respuesta del cliente
+            String respuesta = entrada.readLine();
+            // Si la respuesta es "si" reiniciar el juego
+            if (respuesta.equals("si")) {
+                fallos = 0;
+                estado = "continuar";
+                indice_letras = 0;
             } else {
-                out.write("Has perdido");
-                out.newLine();
-                out.flush();
+                // Si la respuesta es "no" terminar el juego
+                break;
             }
-            out.write("La palabra era: " + palabra);
-            out.newLine();
-            out.flush();
-            out.write("adios");
-            out.newLine();
-            out.flush();
-            in.close();
-            out.close();
-            clienteSocket.close();
-        } catch (Exception e) {
-            
         }
-    }
-
-    // metodo main
-    public static void main(String[] args) {
-        try {
-            ServerSocket serverSocket = new ServerSocket();
-            InetSocketAddress addr = new InetSocketAddress("localhost", 5050);
-            serverSocket.bind(addr);
-            String[] palabras = {"algoritmo", "bug", "compilador", "debug", "error", "expresion", "funcion", "hacker", "hardware", "idioma", "informatica", "inteligencia", "inteligencia artificial", "juego", "lenguaje", "libreria", "ordenador", "palabra", "programa", "programacion", "programador", "software", "variable"};
-            while (true) {
-                System.out.println("Esperando cliente...");
-                Socket clienteSocket = serverSocket.accept();
-                System.out.println("Cliente conectado");
-                juego(palabras, clienteSocket);
-            }
-        } catch (Exception e) {
-            
-        }
+        // Cerrar el socket del cliente
+        cliente.close();
+        // Cerrar el socket del servidor
+        servidor.close();
     }
 }
-
