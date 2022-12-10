@@ -25,12 +25,12 @@ public class Cliente {
             Scanner Scanner = new Scanner(System.in);
 
             while ((line = br.readLine()) != null) {
+                // borrar la pantalla
+                System.out.print("\033[H\033[2J");
                 System.out.println(line);
                 String letra = Scanner.nextLine();
                 ps.println(letra);
                 
-            
-                ps.flush();
             }
         } catch (IOException e) {
             e.printStackTrace();

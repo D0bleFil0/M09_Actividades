@@ -53,10 +53,10 @@ public class JuegoAhorcado {
         // Crea una variable para guardar la última letra ingresada
         String letra = "";
         // Bucle de juego
-        while (intentos < 6 && guiones.indexOf("-") != -1) {
+        while (intentos < 6 ) {
             // Muestra la palabra
             ps.println("Palabra: " + guiones);
-            // Pide una letra
+            
             // recibe la letra de un cliente
             letra = br.readLine();
             
@@ -71,17 +71,24 @@ public class JuegoAhorcado {
                 // Si la letra no está en la palabra, aumenta el contador de intentos
                 intentos++;
             }
+
+            // Si la palabra ya no tiene guiones, el jugador ha ganado
+            if (guiones.indexOf("-") == -1) {
+                ps.println("Ganaste! La palabra era " + palabra);
+                break;
+
         }
-        // Si el contador de intentos es menor a 6, el jugador ganó
-        if (intentos < 6) {
-            ps.println("Ganaste!");
-        } else {
-            // Si el contador de intentos es mayor o igual a 6, el jugador perdió
-            ps.println("Perdiste!");
+        // Si el contador de intentos es igual a 6, el jugador ha perdido
+        if (intentos == 6) {
+            ps.println("Perdiste! La palabra era " + palabra);
         }
-        // Cierra el socket
+    }
+
+        // Cerrar el socket
         socket.close();
-        // Cierra el servidor
+        // Cerrar el servidor
         serverSocket.close();
     }
 }
+
+
