@@ -11,7 +11,7 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-public class servidorAhorcado {
+public class JuegoAhorcado {
 
     private static ServerSocket serverSocket;
     public static void main(String[] args) throws IOException {
@@ -51,36 +51,37 @@ public class servidorAhorcado {
             guiones.append("-");
         }
         // Crea una variable para guardar la última letra ingresada
-        char letra = ' ';
+        String letra = "";
         // Bucle de juego
         while (intentos < 6 && guiones.indexOf("-") != -1) {
             // Muestra la palabra
             ps.println("Palabra: " + guiones);
             // Pide una letra
-            ps.print("Ingresa una letra: ");
             // recibe la letra de un cliente
-            letra = br.readLine().charAt(0);
-
+            letra = br.readLine();
             
-            // Si la letra está en la palabra, la mostramos
+            // Si la letra está en la palabra, reemplaza los guiones por la letra
             if (palabra.indexOf(letra) != -1) {
                 for (int i = 0; i < palabra.length(); i++) {
-                    if (palabra.charAt(i) == letra) {
-                        guiones.setCharAt(i, letra);
+                    if (palabra.charAt(i) == letra.charAt(0)) {
+                        guiones.setCharAt(i, letra.charAt(0));
                     }
                 }
             } else {
+                // Si la letra no está en la palabra, aumenta el contador de intentos
                 intentos++;
-                ps.println("Letra incorrecta. Intentos restantes: " + (6 - intentos));
             }
-            ps.println();
-            ps.flush();
         }
-        // Comprobamos si el jugador ganó
-        if (guiones.indexOf("-") == -1) {
-            ps.println("¡Has ganado!");
+        // Si el contador de intentos es menor a 6, el jugador ganó
+        if (intentos < 6) {
+            ps.println("Ganaste!");
         } else {
-            ps.println("¡Has perdido!");
+            // Si el contador de intentos es mayor o igual a 6, el jugador perdió
+            ps.println("Perdiste!");
         }
+        // Cierra el socket
+        socket.close();
+        // Cierra el servidor
+        serverSocket.close();
     }
 }

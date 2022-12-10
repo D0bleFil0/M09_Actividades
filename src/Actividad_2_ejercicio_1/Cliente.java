@@ -26,10 +26,10 @@ public class Cliente {
 
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
-                System.out.print("Respuesta: " + line); // Imprime la respuesta del servidor
+                String letra = Scanner.nextLine();
+                ps.println(letra);
                 
-                ps.println(Scanner.nextLine());
-
+            
                 ps.flush();
             }
         } catch (IOException e) {
