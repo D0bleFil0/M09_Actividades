@@ -74,7 +74,7 @@ public class ServidorAhorcado {
 
         // Bloque de codigo para el servidor
 
-        String line;
+        String letra;
 
         // Se crea la conexion
         try {
@@ -97,26 +97,40 @@ public class ServidorAhorcado {
             // Creamos un try para leer los datos que nos envia el cliente
             try {
                 // Leemos el numero que nos envia el cliente
-                line = br.readLine();
+                letra = br.readLine();
+                //linea = br.readLine();
                 boolean victoria = false;
                 int intentos = 7;
+
+                // Enviamos el numero binario
+                PrintStream ps = new PrintStream(socket.getOutputStream(), true);
+                
                 // Cierra el bucle cuando se acaben los intentos o se acierte la palabra
                 do {
                     // borrar la pantalla y dibujar el ahorcado
                     System.out.print("\033[H\033[2J");
+                    ps.println("\033[H\033[2J");
                     System.out.println("Intentos: " + intentos);
+                    ps.println();
                     System.out.println("");
+                    ps.println("");
                     for (int i = 0; i < ahorcado.length; i++) {
                         System.out.println(ahorcado[i]);
+                        ps.println();
                     }
                     for (int i = 0; i < letras.length; i++) {
                         System.out.print(letras[i] + " ");
+                        ps.println();
                     }
                     // Pedir una letra
                     System.out.println("");
+                    ps.println();
                     System.out.println("");
+                    ps.println();
                     System.out.println("Introduce una letra:");
-                    String letra = sc.nextLine();
+                    ps.println();
+                    //String letra = line.nextLine();
+                    letra = br.readLine();
                     boolean acierto = false;
                     // Comprobar si la letra está en la palabra
                     for (int i = 0; i < palabra.length(); i++) {
@@ -163,20 +177,30 @@ public class ServidorAhorcado {
                 if (victoria) {
                     // Borrar la pantalla
                     System.out.print("\033[H\033[2J");
+                    ps.println("\033[H\033[2J");
                     // Dibujar ahorcado
                     for (int i = 0; i < ahorcado.length; i++) {
                         System.out.println(ahorcado[i]);
+                        ps.println();
+
                     }
                     for (int i = 0; i < letras.length; i++) {
                         System.out.print(letras[i] + " ");
+                        ps.println();
+
                     }
                     // Mensaje de victoria
                     System.out.println("");
+                    ps.println();
                     System.out.println("");
+                    ps.println();
                     System.out.println("¡Has ganado!");
+                    ps.println();
                     System.out.println("");
+                    ps.println();
                     // Reinicia partida
                     System.out.println("¿Quieres jugar otra vez? (s/n)");
+                    ps.println();
                     String respuesta = sc.nextLine();
                     if (respuesta.equalsIgnoreCase("s")) {
                         main(args);
@@ -185,17 +209,25 @@ public class ServidorAhorcado {
                 } else {
                     // Borrar la pantalla y mostrar mensaje de derrota con el ahorcado completo
                     System.out.print("\033[H\033[2J");
+                    ps.println();
                     System.out.println("¡Has muerto!");
+                    ps.println();
                     System.out.println("");
+                    ps.println();
                     // Dibujar ahocardo completo
                     for (int i = 0; i < ahorcado.length; i++) {
                         System.out.println(ahorcado[i]);
+                        ps.println();
                     }
                     System.out.print("\nLa palabra era: " + palabra);
+                    ps.println();
                     System.out.println("");
+                    ps.println();
                     System.out.println("");
+                    ps.println();
                     // Reinicia partida
                     System.out.println("¿Quieres jugar otra vez? (s/n)");
+                    ps.println();
                     String respuesta = sc.nextLine();
                     sc.close();
                     // si es igual a s ignorar mayusculas y minusculas
