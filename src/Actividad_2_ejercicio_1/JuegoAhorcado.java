@@ -38,7 +38,6 @@ public class JuegoAhorcado {
         // Crea una lista de palabras
         String[] palabras = {
             "casa",
-            "gato",
         };
         // Selecciona una palabra al azar
         int aleatorio = rand.nextInt(palabras.length);
@@ -67,7 +66,7 @@ public class JuegoAhorcado {
                     if (palabra.charAt(i) == letra.charAt(0)) {
                         guiones.setCharAt(i, letra.charAt(0));
                     }
-                    
+
                 }
             } else {
                 intentos++;
