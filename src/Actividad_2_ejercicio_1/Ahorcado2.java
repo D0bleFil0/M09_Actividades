@@ -4,16 +4,13 @@ import java.net.ServerSocket;
 import java.util.Random;
 import java.util.Scanner;
 
-
-
 public class Ahorcado2 {
 
-
     private static ServerSocket serverSocket;
-    //puerto para la conexion
+    // puerto para la conexion
     private static final int puerto = 5050;
 
-    //metodo para elegir una palabra aleatoria del diccionario
+    // metodo para elegir una palabra aleatoria del diccionario
     public static String elegirPalabra(String[] palabras) {
         Random r = new Random();
         int indice = r.nextInt(palabras.length);
@@ -21,13 +18,14 @@ public class Ahorcado2 {
         return palabra;
     }
 
-    //metodo para crear un array de letras con tantas posiciones como letras tenga la palabra
+    // metodo para crear un array de letras con tantas posiciones como letras tenga
+    // la palabra
     public static String[] crearArrayLetras(String palabra) {
         String[] letras = new String[palabra.length()];
         return letras;
     }
 
-    //metodo para crear un array de strings para dibujar el ahorcado
+    // metodo para crear un array de strings para dibujar el ahorcado
     public static String[] crearArrayAhorcado() {
         String[] ahorcado = new String[6];
         ahorcado[0] = "  +---+";
@@ -39,14 +37,14 @@ public class Ahorcado2 {
         return ahorcado;
     }
 
-    //metodo para mostrar el ahorcado
+    // metodo para mostrar el ahorcado
     public static void mostrarAhorcado(String[] ahorcado) {
         for (int i = 0; i < ahorcado.length; i++) {
             System.out.println(ahorcado[i]);
         }
     }
 
-    //metodo para mostrar las letras
+    // metodo para mostrar las letras
     public static void mostrarLetras(String[] letras) {
         for (int i = 0; i < letras.length; i++) {
             System.out.print(letras[i] + " ");
@@ -54,7 +52,7 @@ public class Ahorcado2 {
         System.out.println();
     }
 
-    //metodo para comprobar si la letra esta en la palabra
+    // metodo para comprobar si la letra esta en la palabra
     public static boolean comprobarLetra(String letra, String palabra) {
         boolean esta = false;
         for (int i = 0; i < palabra.length(); i++) {
@@ -65,7 +63,7 @@ public class Ahorcado2 {
         return esta;
     }
 
-    //metodo para comprobar si se ha ganado
+    // metodo para comprobar si se ha ganado
     public static boolean comprobarVictoria(String[] letras) {
         boolean victoria = true;
         for (int i = 0; i < letras.length; i++) {
@@ -76,7 +74,7 @@ public class Ahorcado2 {
         return victoria;
     }
 
-    //metodo del juego
+    // metodo del juego
     public static void jugar(String[] palabras) {
         int intentos = 0;
         String palabra = elegirPalabra(palabras);
@@ -139,8 +137,7 @@ public class Ahorcado2 {
         }
     }
 
-
-    //metodo main
+    // metodo main
     public static void main(String[] args) {
         String[] palabras = new String[10];
         palabras[0] = "programacion";
@@ -157,6 +154,3 @@ public class Ahorcado2 {
     }
 
 }
-
-
-
