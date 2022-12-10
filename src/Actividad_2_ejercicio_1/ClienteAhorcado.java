@@ -21,7 +21,7 @@ public class ClienteAhorcado {
             Socket socket = new Socket();
 
             // Creamos un Socket Adress para una máquina y numero de puerto
-            InetSocketAddress addr = new InetSocketAddress("localhost", 5555);
+            InetSocketAddress addr = new InetSocketAddress("localhost", 5050);
 
             // Asignamos el socket a la direccion
             socket.connect(addr);
