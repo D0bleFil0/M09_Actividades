@@ -1,58 +1,168 @@
-// Servidor.java
 package Actividad_2_ejercicio_1;
 
-// servidor para enviar mensajes a cliente
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
+import java.util.Scanner;
 
 public class ServidorAhorcado {
 
-    private static ServerSocket serverSocket;
-    //puerto para la conexion
-    private static final int puerto = 5050;
+    // metodo para elegir una palabra aleatoria del diccionario
+    public static String elegirPalabra(String[] palabras) {
+        Random r = new Random();
+        int indice = r.nextInt(palabras.length);
+        String palabra = palabras[indice];
+        return palabra;
+    }
 
-    public static void main(String[] args) {
-        String line;
-        try {
-            // Utilizamos la clase ServerSocket en el servidor
-            serverSocket = new ServerSocket();
-            System.out.println("**SERVIDOR DE MENSAJES**");
-            System.out.println("Esperando Conexion...");
-            // Creamos un Socket Adress para una máquina y numero de puerto
-            InetSocketAddress addr = new InetSocketAddress("localhost", puerto);
-            // Asignamos el socket a la direccion
-            serverSocket.bind(addr);
-            // Aceptamos la conexion
-            Socket socket = serverSocket.accept();
-            System.out.println("Cliente conectado...");
-            System.out.println();
-            // Creamos un buffer para leer los datos que nos envia el cliente
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-            // Creamos un try para leer los datos que nos envia el cliente
-            try {
-                // Leemos el numero que nos envia el cliente
-                line = br.readLine();
-                // Mientras no sea "fin"
-                while (!line.equalsIgnoreCase("FIN")) {
-                    System.out.println("Recibido: " + line);
-                    // Creamos un buffer para escribir los datos que nos envia el cliente
-                    PrintStream out = new PrintStream(socket.getOutputStream(), true, "UTF-8");
-                    out.println("Mensaje recibido");
-                    // Leemos el numero que nos envia el cliente
-                    line = br.readLine();
-                }
-                System.out.println("Fin de la conexion");
-                socket.close();
-            } catch (IOException e) {
-                System.out.println("Error de E/S");
+    // metodo para crear un array de letras con tantas posiciones como letras tenga
+    // la palabra
+    public static String[] crearArrayLetras(String palabra) {
+        String[] letras = new String[palabra.length()];
+        return letras;
+    }
+
+    // metodo para crear un array de strings para dibujar el ahorcado
+    public static String[] crearArrayAhorcado() {
+        String[] ahorcado = new String[6];
+        ahorcado[0] = "  +---+";
+        ahorcado[1] = "  |   |";
+        ahorcado[2] = "      |";
+        ahorcado[3] = "      |";
+        ahorcado[4] = "      |";
+        ahorcado[5] = "========";
+        return ahorcado;
+    }
+
+    // metodo para mostrar el ahorcado
+    public static void mostrarAhorcado(String[] ahorcado) {
+        for (int i = 0; i < ahorcado.length; i++) {
+            System.out.println(ahorcado[i]);
+        }
+    }
+
+    // metodo para mostrar las letras
+    public static void mostrarLetras(String[] letras) {
+        for (int i = 0; i < letras.length; i++) {
+            System.out.print(letras[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // metodo para comprobar si la letra esta en la palabra
+    public static boolean comprobarLetra(String letra, String palabra) {
+        boolean esta = false;
+        for (int i = 0; i < palabra.length(); i++) {
+            if (letra.equals(palabra.substring(i, i + 1))) {
+                esta = true;
             }
-        } catch (IOException e) {
-            System.out.println("Error de E/S");
+        }
+        return esta;
+    }
+
+    // metodo para comprobar si se ha ganado
+    public static boolean comprobarVictoria(String[] letras) {
+        boolean victoria = true;
+        for (int i = 0; i < letras.length; i++) {
+            if (letras[i].equals("_")) {
+                victoria = false;
+            }
+        }
+        return victoria;
+    }
+
+    // metodo del juego con conexion al cliente
+    public static void juego(String[] palabras, Socket clienteSocket) {
+        try {
+            String palabra = elegirPalabra(palabras);
+            String[] letras = crearArrayLetras(palabra);
+            for (int i = 0; i < letras.length; i++) {
+                letras[i] = "_";
+            }
+            String[] ahorcado = crearArrayAhorcado();
+            boolean victoria = false;
+            int fallos = 0;
+            boolean esta;
+            BufferedReader in = new BufferedReader(new InputStreamReader(clienteSocket.getInputStream()));
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clienteSocket.getOutputStream()));
+            Scanner sc = new Scanner(System.in);
+            String inputLine;
+            while (!victoria && fallos < 6) {
+                out.write("La palabra es: ");
+                out.newLine();
+                out.flush();
+                mostrarLetras(letras);
+                out.write("El ahorcado es: ");
+                out.newLine();
+                out.flush();
+                mostrarAhorcado(ahorcado);
+                out.write("Introduce una letra: ");
+                out.newLine();
+                out.flush();
+                String letra = in.readLine();
+                esta = comprobarLetra(letra, palabra);
+                if (esta) {
+                    out.write("La letra " + letra + " esta en la palabra");
+                    out.newLine();
+                    out.flush();
+                    for (int i = 0; i < palabra.length(); i++) {
+                        if (letra.equals(palabra.substring(i, i + 1))) {
+                            letras[i] = letra;
+                        }
+                    }
+                    victoria = comprobarVictoria(letras);
+                } else {
+                    out.write("La letra " + letra + " no esta en la palabra");
+                    out.newLine();
+                    out.flush();
+                    ahorcado[fallos + 2] = "  O   |";
+                    fallos++;
+                }
+            }
+            if (victoria) {
+                out.write("Enhorabuena, has ganado");
+                out.newLine();
+                out.flush();
+            } else {
+                out.write("Has perdido");
+                out.newLine();
+                out.flush();
+            }
+            out.write("La palabra era: " + palabra);
+            out.newLine();
+            out.flush();
+            out.write("adios");
+            out.newLine();
+            out.flush();
+            in.close();
+            out.close();
+            clienteSocket.close();
+        } catch (Exception e) {
+            
+        }
+    }
+
+    // metodo main
+    public static void main(String[] args) {
+        try {
+            ServerSocket serverSocket = new ServerSocket();
+            InetSocketAddress addr = new InetSocketAddress("localhost", 5050);
+            serverSocket.bind(addr);
+            String[] palabras = {"algoritmo", "bug", "compilador", "debug", "error", "expresion", "funcion", "hacker", "hardware", "idioma", "informatica", "inteligencia", "inteligencia artificial", "juego", "lenguaje", "libreria", "ordenador", "palabra", "programa", "programacion", "programador", "software", "variable"};
+            while (true) {
+                System.out.println("Esperando cliente...");
+                Socket clienteSocket = serverSocket.accept();
+                System.out.println("Cliente conectado");
+                juego(palabras, clienteSocket);
+            }
+        } catch (Exception e) {
+            
         }
     }
 }
+
