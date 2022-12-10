@@ -11,7 +11,7 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-public class JuegoAhorcado {
+public class servidorAhorcado {
 
     private static ServerSocket serverSocket;
     public static void main(String[] args) throws IOException {
@@ -20,7 +20,7 @@ public class JuegoAhorcado {
 
         // Utilizamos la clase ServerSocket en el servidor
         serverSocket = new ServerSocket();
-        System.out.println("**JUEGO DEL AHORCADO - SERVIDOR**");
+        System.out.println("**CONVERTIDOR DE DECIMAL A BINARIO - SERVIDOR**");
         System.out.println("Esperando Conexion...");
         // Creamos un Socket Adress para una máquina y numero de puerto
         InetSocketAddress addr = new InetSocketAddress("localhost", 5050);
@@ -38,6 +38,7 @@ public class JuegoAhorcado {
         // Crea una lista de palabras
         String[] palabras = {
             "casa",
+            "gato",
         };
         // Selecciona una palabra al azar
         int aleatorio = rand.nextInt(palabras.length);
@@ -50,7 +51,7 @@ public class JuegoAhorcado {
             guiones.append("-");
         }
         // Crea una variable para guardar la última letra ingresada
-        String letra = "";
+        char letra = ' ';
         // Bucle de juego
         while (intentos < 6 && guiones.indexOf("-") != -1) {
             // Muestra la palabra
@@ -58,20 +59,21 @@ public class JuegoAhorcado {
             // Pide una letra
             ps.print("Ingresa una letra: ");
             // recibe la letra de un cliente
-            letra = br.readLine();
-            // Comprueba si la letra está en la palabra
-            if (palabra.indexOf(letra) != -1) {
-                // Si la letra está en la palabra, reemplaza los guiones por la letra
-                for (int i = 0; i < palabra.length(); i++) {
-                    if (palabra.charAt(i) == letra.charAt(0)) {
-                        guiones.setCharAt(i, letra.charAt(0));
-                    }
+            letra = br.readLine().charAt(0);
 
+            
+            // Si la letra está en la palabra, la mostramos
+            if (palabra.indexOf(letra) != -1) {
+                for (int i = 0; i < palabra.length(); i++) {
+                    if (palabra.charAt(i) == letra) {
+                        guiones.setCharAt(i, letra);
+                    }
                 }
             } else {
                 intentos++;
                 ps.println("Letra incorrecta. Intentos restantes: " + (6 - intentos));
             }
+            ps.println();
             ps.flush();
         }
         // Comprobamos si el jugador ganó
