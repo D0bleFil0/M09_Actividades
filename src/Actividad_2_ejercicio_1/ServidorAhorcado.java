@@ -13,6 +13,8 @@ import java.net.Socket;
 public class ServidorAhorcado {
 
     private static ServerSocket serverSocket;
+    //puerto para la conexion
+    private static final int puerto = 5050;
 
     public static void main(String[] args) {
         String line;
@@ -22,7 +24,7 @@ public class ServidorAhorcado {
             System.out.println("**SERVIDOR DE MENSAJES**");
             System.out.println("Esperando Conexion...");
             // Creamos un Socket Adress para una máquina y numero de puerto
-            InetSocketAddress addr = new InetSocketAddress("localhost", 5555);
+            InetSocketAddress addr = new InetSocketAddress("localhost", puerto);
             // Asignamos el socket a la direccion
             serverSocket.bind(addr);
             // Aceptamos la conexion
