@@ -52,7 +52,7 @@ public class ServidorAhorcado {
         }
 
         // Crea una variable para guardar la última letra ingresada
-        String letra = "";
+        String letra = "a";
         // Bucle de juego
         while (intentos < 6) {
 

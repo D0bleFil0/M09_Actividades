@@ -41,8 +41,11 @@ public class ClienteAhorcado {
                 System.out.print("\033[H\033[2J");
             }
 
+            // crea un buffer para leer los datos que nos envia el servidor
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            // crea un buffer para enviar datos al servidor
             PrintStream ps = new PrintStream(socket.getOutputStream(), true);
+            // Crea un scanner para leer la letra
             Scanner Scanner = new Scanner(System.in);
 
             // Mientras haya lineas que leer
