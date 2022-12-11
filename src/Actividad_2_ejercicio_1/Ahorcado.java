@@ -69,7 +69,7 @@ public class Ahorcado {
         int intentos = 7;
         // Cierra el bucle cuando se acaben los intentos o se acierte la palabra
         do {
-            // borrar la pantalla y dibujar el ahorcado
+            // borrar la pantalla y dibujar el ahorcado en un
             System.out.print("\033[H\033[2J");
             System.out.println("Intentos: " + intentos);
             System.out.println("");

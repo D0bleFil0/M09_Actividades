@@ -22,11 +22,12 @@ public class ClienteAhorcado {
             System.out.println("Conectado...");
             System.out.println();
 
-            // cuenta durante 5 segundos y despues borra la pantalla
-            for (int i = 5; i > 0; i--) {
+            // Cotnar durante 3 segundos y comienza el juego
+            for (int i = 3; i > 0; i--) {
                 System.out.print("\033[H\033[2J");
-                System.out.println("Juego del ahorcado");
+                System.out.println("**JUEGO DEL AHORCADO - CLIENTE**");
                 // imprime el ahorcado
+                System.out.println("");
                 System.out.println("  +---+");
                 System.out.println("  |   |");
                 System.out.println("  O   |");
@@ -34,9 +35,9 @@ public class ClienteAhorcado {
                 System.out.println(" / \\  |");
                 System.out.println("      |");
                 System.out.println("=========");
-
+                System.out.println("");
                 System.out.println("Comienza en " + i);
-                Thread.sleep(600);
+                Thread.sleep(1000);
                 // borra la pantalla
                 System.out.print("\033[H\033[2J");
             }
@@ -48,23 +49,40 @@ public class ClienteAhorcado {
             // Crea un scanner para leer la letra
             Scanner Scanner = new Scanner(System.in);
 
-            // Mientras haya lineas que leer
-            while ((line = br.readLine()) != null) {
+            // Variable para salir del bucle
+            boolean exit = false;
 
+            // Mientras exit sea false
+            while (!exit) {
+                // lee la linea del servidor
+                line = br.readLine();
+                // si la linea es null, sale del bucle
+                if (line == null) {
+                    break;
+                }
                 // borra la pantalla
                 System.out.print("\033[H\033[2J");
                 // se muestra la palabra
-
                 System.out.println(line);
-
                 // pide una letra al cliente
                 String letra = Scanner.nextLine();
+
+                // Bucle while para que no se pueda enviar una cadena vacia
+                while (letra.equals("")) {
+                    System.out.print("\033[H\033[2J");
+                    System.out.println(line);
+                    letra = Scanner.nextLine();
+                }
                 // limpia el buffer
                 ps.flush();
-                // envia la letra al servidor
-                ps.println(letra);
+                // envia la primera letra al servidor
+                ps.println(letra.charAt(0));
+
             }
 
+            // cierra el scanner
+            Scanner.close();
+            // cierra el socket
             socket.close();
 
         } catch (IOException e) {

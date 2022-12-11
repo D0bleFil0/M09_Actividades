@@ -15,7 +15,6 @@ public class ServidorAhorcado {
     private static ServerSocket serverSocket;
 
     public static void main(String[] args) throws IOException {
-        String line;
         Scanner scanner = new Scanner(System.in);
 
         // Utilizamos la clase ServerSocket en el servidor
@@ -51,15 +50,25 @@ public class ServidorAhorcado {
             guiones.append("-");
         }
 
+           // Crear un array de strings para dibujar el ahorcado
+           String[] ahorcado = new String[6];
+           ahorcado[0] = "  +---+";
+           ahorcado[1] = "  |   |";
+           ahorcado[2] = "      |";
+           ahorcado[3] = "      |";
+           ahorcado[4] = "      |";
+           ahorcado[5] = "========";
+
         // Crea una variable para guardar la última letra ingresada
-        String letra = "a";
+        String letra;
+
+
         // Bucle de juego
         while (intentos < 6) {
-
+            // Vacía el buffer
+            ps.flush();
             // Muestra la palabra
             ps.println("Palabra: " + guiones + " [Intentos: " + intentos + "]");
-
-            ps.flush();
 
             // recibe la letra de un cliente
             letra = br.readLine();
@@ -80,7 +89,7 @@ public class ServidorAhorcado {
 
             // Si la palabra ya no tiene guiones, el jugador ha ganado
             if (guiones.indexOf("-") == -1) {
-                ps.println("¡Ganaste! La palabra era " + palabra + "¿Quieres jugar de nuevo? (s/n)");
+                ps.println("¡Ganaste! La palabra era \"" + palabra + "\". ¿Quieres jugar de nuevo? (s/n)");
                 ps.flush();
                 String respuesta = br.readLine();
                 if (respuesta.equals("s")) {
@@ -101,7 +110,7 @@ public class ServidorAhorcado {
             }
             // Si el contador de intentos es igual a 6, el jugador ha perdido
             if (intentos == 6) {
-                ps.println("Perdiste! La palabra era " + palabra + "¿Quieres jugar de nuevo? (s/n)");
+                ps.println("Perdiste! La palabra era: \"" + palabra + "\". ¿Quieres jugar de nuevo? (s/n)");
                 // Preguntar si quiere jugar de nuevo
                 ps.flush();
                 String respuesta = br.readLine();
@@ -121,8 +130,16 @@ public class ServidorAhorcado {
                 }
             }
         }
-
+        // Cierra el Scanner
+        scanner.close();
+        // Cierra el PrintStream
+        ps.close();
+        // Cierra el buffer
+        br.close();
+        // Cierra el socket
+        socket.close();
         // Cerrar el servidor
         serverSocket.close();
+
     }
 }
