@@ -53,7 +53,7 @@ public class ServidorBuffer {
         // Crear un array de strings para dibujar el ahorcado
         String[] ahorcado = new String[6];
         ahorcado[0] = "  +---+";
-        ahorcado[1] = "  |   |";
+        ahorcado[1] = "      |";
         ahorcado[2] = "      |";
         ahorcado[3] = "      |";
         ahorcado[4] = "      |";
@@ -139,12 +139,7 @@ public class ServidorBuffer {
                         for (int i = 0; i < palabra.length(); i++) {
                             guiones.append("-");
                         }
-                        ahorcado[0] = "  +---+";
-                        ahorcado[1] = "  |   |";
-                        ahorcado[2] = "      |";
-                        ahorcado[3] = "      |";
-                        ahorcado[4] = "      |";
-                        ahorcado[5] = "========";
+
                     } else {
                         exit = true;
                         ps.print("e");
@@ -173,12 +168,6 @@ public class ServidorBuffer {
                         for (int i = 0; i < palabra.length(); i++) {
                             guiones.append("-");
                         }
-                        ahorcado[0] = "  +---+";
-                        ahorcado[1] = "      |";
-                        ahorcado[2] = "      |";
-                        ahorcado[3] = "      |";
-                        ahorcado[4] = "      |";
-                        ahorcado[5] = "========";
                     } else {
                         exit = true;
                         ps.print("e");
