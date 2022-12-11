@@ -4,7 +4,6 @@ package Actividad_2_ejercicio_1;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.io.*;
 import java.util.*;
 
 public class Ahorcado_jframe extends JFrame implements ActionListener {
@@ -139,6 +138,8 @@ public class Ahorcado_jframe extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         Ahorcado_jframe a = new Ahorcado_jframe();
+        a.setAlwaysOnTop(isDefaultLookAndFeelDecorated());
+        
     }
 }
 

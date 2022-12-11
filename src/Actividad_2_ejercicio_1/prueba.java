@@ -26,5 +26,6 @@ public class prueba {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        sc.close();
     }
 }
