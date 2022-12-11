@@ -1,4 +1,4 @@
-package Actividad_2_ejercicio_1;
+package Actividad_2_ejercicio_0;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

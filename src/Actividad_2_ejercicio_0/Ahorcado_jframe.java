@@ -1,4 +1,4 @@
-package Actividad_2_ejercicio_1;
+package Actividad_2_ejercicio_0;
 
 // juego del ahorcado, pero en vez de imprimir el ahorcado en la consola, se envia a un archivo de texto y se muestra en un jframe
 import java.awt.*;
