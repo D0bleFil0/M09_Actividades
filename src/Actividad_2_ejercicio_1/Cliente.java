@@ -36,7 +36,7 @@ public class Cliente {
                 System.out.println("=========");
 
                 System.out.println("Comienza en " + i);
-                Thread.sleep(1000);
+                Thread.sleep(600);
                 // borra la pantalla
                 System.out.print("\033[H\033[2J");
             }

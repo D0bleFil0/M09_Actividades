@@ -55,10 +55,10 @@ public class JuegoAhorcado {
         String letra = "";
         // Bucle de juego
         while (intentos < 6) {
-            ps.flush();
+         
             // Muestra la palabra
-            ps.println("Palabra: " + guiones);
-            ps.println("Intentos: " + intentos);
+            ps.println("Palabra: " + guiones + " [Intentos: " + intentos + "]");
+
             ps.flush();
 
             // recibe la letra de un cliente
@@ -75,7 +75,7 @@ public class JuegoAhorcado {
                 // Si la letra no está en la palabra, aumenta el contador de intentos
                 intentos++;
                 // Imprime los intentos
-
+                
             }
 
             // Si la palabra ya no tiene guiones, el jugador ha ganado
