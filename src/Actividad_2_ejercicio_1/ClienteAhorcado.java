@@ -121,7 +121,7 @@ public class ClienteAhorcado {
 			}
 
 			// Mensaje de despedida
-			System.out.println("Gracias por jugar");
+			System.out.println("  Gracias por jugar");
 			// cierra el scanner
 			Scanner.close();
 			// cierra el socket

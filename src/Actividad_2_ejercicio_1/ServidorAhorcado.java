@@ -52,21 +52,21 @@ public class ServidorAhorcado {
 
         // Crear un array de strings para dibujar el ahorcado
         String[] ahorcado = new String[6];
-        ahorcado[0] = "  :---+";
-        ahorcado[1] = "      |";
-        ahorcado[2] = "      |";
-        ahorcado[3] = "      |";
-        ahorcado[4] = "      |";
-        ahorcado[5] = "========";
+        ahorcado[0] = "    :---+";
+        ahorcado[1] = "        |";
+        ahorcado[2] = "        |";
+        ahorcado[3] = "        |";
+        ahorcado[4] = "        |";
+        ahorcado[5] = "  ========";
 
         // Crear un array de strings para dibujar el ahorcado completo
         String[] ahorcado2 = new String[6];
-        ahorcado2[0] = "  +---+";
-        ahorcado2[1] = "  |   |";
-        ahorcado2[2] = "  O   |";
-        ahorcado2[3] = " /|\\  |";
-        ahorcado2[4] = " / \\  |";
-        ahorcado2[5] = "========";
+        ahorcado2[0] = "    +---+";
+        ahorcado2[1] = "    |   |";
+        ahorcado2[2] = "    O   |";
+        ahorcado2[3] = "   /|\\  |";
+        ahorcado2[4] = "   / \\  |";
+        ahorcado2[5] = "  ========";
 
         // Crea una variable para guardar la última letra ingresada
         String letra;
@@ -79,7 +79,7 @@ public class ServidorAhorcado {
             // Bucle de juego
             while (!exit) {
                 // Titulo del juego
-                ps.println("***JUEGO DEL AHORCADO - CLIENTE**\n");
+                ps.println("  ***JUEGO DEL AHORCADO - CLIENTE**\n");
                 // Muestra el ahorcado completo
                 for (int i = 0; i < ahorcado2.length; i++) {
                     ps.println(ahorcado2[i]);
@@ -87,9 +87,9 @@ public class ServidorAhorcado {
 
                 // Muestra menu con opciones 1 y 2
                 ps.println("");
-                ps.println("1. Jugar");
-                ps.println("2. Salir");
-                ps.print("\nElige una opcion: ");
+                ps.println("  1. Jugar");
+                ps.println("  2. Salir");
+                ps.print("\n  Elige una opcion: ");
                 ps.println("#");
                 ps.flush();
                 respuesta = br.readLine();
@@ -117,7 +117,7 @@ public class ServidorAhorcado {
                 // Si la palabra ya no tiene guiones, el jugador ha ganado
                 if (guiones.indexOf("-") == -1) {
                     // Titulo del juego
-                    ps.println("***JUEGO DEL AHORCADO - CLIENTE**\n");
+                    ps.println("  ***JUEGO DEL AHORCADO - CLIENTE**\n");
                     // Muestra el ahorcado completo o parcial
                     for (int i = 0; i < intentos; i++) {
                         ps.println(ahorcado2[i]);
@@ -125,9 +125,9 @@ public class ServidorAhorcado {
                     for (int i = intentos; i < 6; i++) {
                         ps.println(ahorcado[i]);
                     }
-                    ps.println("\n¡Ganaste!");
-                    ps.println("La palabra era: " + palabra);
-                    ps.print("\n¿Quieres jugar de nuevo? (s/n): ");
+                    ps.println("\n  ¡Ganaste!");
+                    ps.println("  La palabra era: " + palabra);
+                    ps.print("\n  ¿Quieres jugar de nuevo? (s/n): ");
                     ps.println("#");
                     ps.flush();
                     respuesta = br.readLine();
@@ -149,14 +149,14 @@ public class ServidorAhorcado {
 
                 // Si el contador de intentos es 6, el jugador ha perdido
                 if (intentos == 6) {
-                    ps.println("***JUEGO DEL AHORCADO - CLIENTE**\n");
+                    ps.println("  ***JUEGO DEL AHORCADO - CLIENTE**\n");
                     // imprime el ahorcado completo
                     for (int i = 0; i < ahorcado2.length; i++) {
                         ps.println(ahorcado2[i]);
                     }
-                    ps.println("\n¡Perdiste!");
-                    ps.println("La palabra era: " + palabra);
-                    ps.print("\n¿Quieres jugar de nuevo? (s/n): ");
+                    ps.println("\n  ¡Perdiste!");
+                    ps.println("  La palabra era: " + palabra);
+                    ps.print("\n  ¿Quieres jugar de nuevo? (s/n): ");
                     ps.println("#");
                     ps.flush();
                     respuesta = br.readLine();
@@ -176,7 +176,7 @@ public class ServidorAhorcado {
 
                 }
                 // Titulo del juego
-                ps.println("***JUEGO DEL AHORCADO - CLIENTE**\n");
+                ps.println("  ***JUEGO DEL AHORCADO - CLIENTE**\n");
                 // Muestra el ahorcado completo o parcial
                 for (int i = 0; i < intentos; i++) {
                     ps.println(ahorcado2[i]);
@@ -188,10 +188,10 @@ public class ServidorAhorcado {
                 ps.println();
 
                 // Muestra la palabra
-                ps.println("Palabra: " + guiones);
-                ps.println("Intentos: " + intentos + "/6");
+                ps.println("  Palabra: " + guiones);
+                ps.println("  Intentos: " + intentos + "/6");
                 // Pide una letra
-                ps.print("\nIngresa una letra: ");
+                ps.print("\n  Ingresa una letra: ");
                 ps.println("#");
                 ps.flush();
                 // recibe la letra de un cliente
@@ -229,7 +229,7 @@ public class ServidorAhorcado {
             // Cierra el socket y el servidor
             socket.close();
             serverSocket.close();
-            System.out.println("¡Cliente desconectado!");
+            System.out.println("  ¡Cliente desconectado!");
             System.out.println("");
             // vuelve al inicio del programa
             main(args);
