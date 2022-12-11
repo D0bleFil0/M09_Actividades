@@ -1,8 +1,0 @@
-casa
-perro
-mesa
-amigo
-coche
-gato
-pajaro
-bicicleta
