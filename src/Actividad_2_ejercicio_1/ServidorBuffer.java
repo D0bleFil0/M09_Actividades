@@ -14,7 +14,7 @@ public class ServidorBuffer {
 
     private static ServerSocket serverSocket;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException, NullPointerException {
         Scanner scanner = new Scanner(System.in);
 
         // Utilizamos la clase ServerSocket en el servidor
@@ -59,122 +59,179 @@ public class ServidorBuffer {
         ahorcado[4] = "      |";
         ahorcado[5] = "========";
 
+        // Crear un array de strings para dibujar el ahorcado completo
+        String[] ahorcado2 = new String[6];
+        ahorcado2[0] = "  +---+";
+        ahorcado2[1] = "  |   |";
+        ahorcado2[2] = "  O   |";
+        ahorcado2[3] = " /|\\  |";
+        ahorcado2[4] = " / \\  |";
+        ahorcado2[5] = "========";
+
         // Crea una variable para guardar la última letra ingresada
         String letra;
+        String respuesta = "1";
 
-        // Crea una variable para salir del bucle
-        boolean exit = false;
+        try {
+            // Crea una variable para salir del bucle
+            boolean exit = false;
 
-        // Bucle de juego
-        while (!exit) {
-            // Vacía el buffer
-            ps.flush();
-            // Si la palabra ya no tiene guiones, el jugador ha ganado
-            if (guiones.indexOf("-") == -1) {
-                ps.println("¡Ganaste!");
-                ps.println("La palabra era: " + palabra);
-                ps.println("¿Quieres jugar de nuevo? (s/n)");
+            // Bucle de juego
+            while (!exit) {
+                // Titulo del juego
+                ps.println("***JUEGO DEL AHORCADO - CLIENTE**\n");
+                // Muestra el ahorcado completo
+                for (int i = 0; i < ahorcado2.length; i++) {
+                    ps.println(ahorcado2[i]);
+                }
+
+                // Muestra menu con opciones 1 y 2
+                ps.println("");
+                ps.println("1. Jugar");
+                ps.println("2. Salir");
+                ps.print("\nElige una opcion: ");
                 ps.println("#");
                 ps.flush();
-                String respuesta = br.readLine();
-                if (respuesta.equals("s")) {
-                    aleatorio = rand.nextInt(palabras.length);
-                    palabra = palabras[aleatorio];
-                    intentos = 0;
-                    guiones = new StringBuilder();
-                    for (int i = 0; i < palabra.length(); i++) {
-                        guiones.append("-");
-                    }
-                    ahorcado[0] = "  +---+";
-                    ahorcado[1] = "  |   |";
-                    ahorcado[2] = "      |";
-                    ahorcado[3] = "      |";
-                    ahorcado[4] = "      |";
-                    ahorcado[5] = "========";
-                } else {
-                    exit = true;
+                respuesta = br.readLine();
+
+                if (respuesta.equals("1")) {
                     ps.print("e");
-                    break;
+                    exit = true;
+                }
+                if (respuesta.equals("2")) {
+                    ps.print("e");
+                    respuesta = "0";
+                    // volver al inicio del programa
+                    main(args);
+
                 }
             }
 
-            // Si el contador de intentos es 6, el jugador ha perdido
-            if (intentos == 6) {
-                ps.println("¡Perdiste!");
-                ps.println("La palabra era: " + palabra);
-                ps.println("¿Quieres jugar de nuevo? (s/n)");
+            // Devuelve el valor de la variable exit al valor inicial
+            exit = false;
+
+            // Bucle de juego
+            while (!exit) {
+                // Vacía el buffer
+                ps.flush();
+                // Si la palabra ya no tiene guiones, el jugador ha ganado
+                if (guiones.indexOf("-") == -1) {
+                    ps.println("¡Ganaste!");
+                    ps.println("La palabra era: " + palabra);
+                    ps.println("¿Quieres jugar de nuevo? (s/n)");
+                    ps.println("#");
+                    ps.flush();
+                    respuesta = br.readLine();
+                    if (respuesta.equals("s")) {
+                        aleatorio = rand.nextInt(palabras.length);
+                        palabra = palabras[aleatorio];
+                        intentos = 0;
+                        guiones = new StringBuilder();
+                        for (int i = 0; i < palabra.length(); i++) {
+                            guiones.append("-");
+                        }
+                        ahorcado[0] = "  +---+";
+                        ahorcado[1] = "  |   |";
+                        ahorcado[2] = "      |";
+                        ahorcado[3] = "      |";
+                        ahorcado[4] = "      |";
+                        ahorcado[5] = "========";
+                    } else {
+                        exit = true;
+                        ps.print("e");
+
+                    }
+                }
+
+                // Si el contador de intentos es 6, el jugador ha perdido
+                if (intentos == 6) {
+                    ps.println("¡Perdiste!");
+                    ps.println("La palabra era: " + palabra);
+                    ps.println("¿Quieres jugar de nuevo? (s/n)");
+                    ps.println("#");
+                    ps.flush();
+                    respuesta = br.readLine();
+                    if (respuesta.equals("s")) {
+                        aleatorio = rand.nextInt(palabras.length);
+                        palabra = palabras[aleatorio];
+                        intentos = 0;
+                        guiones = new StringBuilder();
+                        for (int i = 0; i < palabra.length(); i++) {
+                            guiones.append("-");
+                        }
+                        ahorcado[0] = "  +---+";
+                        ahorcado[1] = "  |   |";
+                        ahorcado[2] = "      |";
+                        ahorcado[3] = "      |";
+                        ahorcado[4] = "      |";
+                        ahorcado[5] = "========";
+                    } else {
+                        exit = true;
+                        ps.print("e");
+
+                    }
+
+                }
+                // Titulo del juego
+                ps.println("***JUEGO DEL AHORCADO - CLIENTE**\n");
+                // Muestra el ahorcado completo o parcial
+                for (int i = 0; i < intentos; i++) {
+                    ps.println(ahorcado2[i]);
+                }
+                for (int i = intentos; i < 6; i++) {
+                    ps.println(ahorcado[i]);
+                }
+
+                ps.println();
+
+                // Muestra la palabra
+                ps.println("Palabra: " + guiones);
+                ps.println("Intentos: " + intentos + "/6");
+                // Pide una letra
+                ps.println("Ingresa una letra: ");
                 ps.println("#");
                 ps.flush();
-                String respuesta = br.readLine();
-                if (respuesta.equals("s")) {
-                    aleatorio = rand.nextInt(palabras.length);
-                    palabra = palabras[aleatorio];
-                    intentos = 0;
-                    guiones = new StringBuilder();
+                // recibe la letra de un cliente
+                letra = br.readLine();
+
+                // Si la letra está en la palabra, reemplaza los guiones por la letra
+                if (palabra.indexOf(letra) != -1) {
                     for (int i = 0; i < palabra.length(); i++) {
-                        guiones.append("-");
+                        if (palabra.charAt(i) == letra.charAt(0)) {
+                            guiones.setCharAt(i, letra.charAt(0));
+                        }
                     }
-                    ahorcado[0] = "  +---+";
-                    ahorcado[1] = "  |   |";
-                    ahorcado[2] = "      |";
-                    ahorcado[3] = "      |";
-                    ahorcado[4] = "      |";
-                    ahorcado[5] = "========";
                 } else {
-                    exit = true;
-                    ps.print("e");
-                    break;
+                    // Si la letra no está en la palabra, aumenta el contador de intentos
+                    intentos++;
+                    // Imprime los intentos
+
                 }
 
             }
-            // Titulo del juego
-            ps.println("**JUEGO DEL AHORCADO - CLIENTE**");
-            // Muestra el ahorcado lineas por lineas
-            ps.println(ahorcado[0]);
-            ps.println(ahorcado[1]);
-            ps.println(ahorcado[2]);
-            ps.println(ahorcado[3]);
-            ps.println(ahorcado[4]);
-            ps.println(ahorcado[5]);
-            ps.println();
+            // Cierra el Scanner
+            scanner.close();
+            // Cierra el PrintStream
+            ps.close();
+            // Cierra el buffer
+            br.close();
+            // Cierra el socket
+            socket.close();
+            // Cerrar el servidor
+            serverSocket.close();
+            // Termina el programa
+            System.exit(0);
 
-            // Muestra la palabra
-            ps.println("Palabra: " + guiones);
-            ps.println("Intentos: " + intentos + "/6");
-            // Pide una letra
-            ps.println("Ingresa una letra: ");
-            ps.println("#");
-            ps.flush();
-            // recibe la letra de un cliente
-            letra = br.readLine();
-
-            // Si la letra está en la palabra, reemplaza los guiones por la letra
-            if (palabra.indexOf(letra) != -1) {
-                for (int i = 0; i < palabra.length(); i++) {
-                    if (palabra.charAt(i) == letra.charAt(0)) {
-                        guiones.setCharAt(i, letra.charAt(0));
-                    }
-                }
-            } else {
-                // Si la letra no está en la palabra, aumenta el contador de intentos
-                intentos++;
-                // Imprime los intentos
-
-            }
-
+        } catch (NullPointerException e) {
+            // Cierra el socket y el servidor
+            socket.close();
+            serverSocket.close();
+            System.out.println("¡Cliente desconectado!");
+            System.out.println("");
+            // vuelve al inicio del programa
+            main(args);
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
         }
-        // Cierra el Scanner
-        scanner.close();
-        // Cierra el PrintStream
-        ps.close();
-        // Cierra el buffer
-        br.close();
-        // Cierra el socket
-        socket.close();
-        // Cerrar el servidor
-        serverSocket.close();
-        // Termina el programa
-        System.exit(0);
-
     }
 }

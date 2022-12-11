@@ -23,26 +23,6 @@ public class ClienteBuffer {
 			System.out.println("Conectado...");
 			System.out.println();
 
-			// Cotnar durante 3 segundos y comienza el juego
-			for (int i = 3; i > 0; i--) {
-				System.out.print("\033[H\033[2J");
-				System.out.println("**JUEGO DEL AHORCADO - CLIENTE**");
-				// Imprime el ahorcado
-				System.out.println("");
-				System.out.println("  +---+");
-				System.out.println("  |   |");
-				System.out.println("  O   |");
-				System.out.println(" /|\\  |");
-				System.out.println(" / \\  |");
-				System.out.println("      |");
-				System.out.println("=========");
-				System.out.println("");
-				System.out.println("Comienza en " + i);
-				Thread.sleep(1000);
-				// Borra la pantalla
-				System.out.print("\033[H\033[2J");
-			}
-
 			// Crea un buffer para leer los datos que nos envia el servidor
 			InputStream is = socket.getInputStream();
 
@@ -53,6 +33,57 @@ public class ClienteBuffer {
 
 			// Variable para salir del bucle
 			boolean exit = false;
+
+			// Mientras exit sea false, imprime el menu
+			while (!exit) {
+
+				// Si recibe un exit del servidor, sale del bucle
+				if (is.read() == 'e') {
+					exit = true;
+					break;
+				}
+				// limpia la pantalla
+				System.out.print("\033[H\033[2J");
+
+				// Imprime la informacion del ahorcado que nos envia el servidor
+				BufferedReader br = new BufferedReader(new InputStreamReader(is));
+				// Lee el buffer hasta que encuentre un !
+				char buffer[] = new char[1];
+				while (br.read(buffer) != -1) {
+					if (buffer[0] == '#') {
+						break;
+					}
+					System.out.print(buffer);
+				}
+
+				// pide una letra al cliente
+				String letra = Scanner.nextLine();
+
+				// Bucle while para que no se pueda enviar una cadena vacia
+				while (letra.equals("")) {
+					// System.out.println("No se puede enviar una cadena vacia");
+					letra = Scanner.nextLine();
+				}
+				// limpia el buffer
+				ps.flush();
+
+				if (letra.equals("1")) {
+					// envia la primera letra al servidor
+					ps.println(letra.charAt(0));
+
+				} else if (letra.equals("2")) {
+					// envia la primera letra al servidor
+
+					System.out.println("Adios");
+					System.exit(0);
+				} else {
+					System.out.println("Opcion no valida");
+				}
+
+			}
+			// Si letra es igual a 2
+			// Variable para salir del bucle
+			exit = false;
 
 			// Mientras exit sea false
 			while (!exit) {
@@ -97,7 +128,7 @@ public class ClienteBuffer {
 			socket.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Error: " + e.getMessage());
 		}
 
 	}
