@@ -52,7 +52,7 @@ public class ServidorBuffer {
 
         // Crear un array de strings para dibujar el ahorcado
         String[] ahorcado = new String[6];
-        ahorcado[0] = "  +---+";
+        ahorcado[0] = "  :---+";
         ahorcado[1] = "      |";
         ahorcado[2] = "      |";
         ahorcado[3] = "      |";
