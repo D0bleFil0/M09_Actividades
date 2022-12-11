@@ -116,9 +116,18 @@ public class ServidorBuffer {
                 ps.flush();
                 // Si la palabra ya no tiene guiones, el jugador ha ganado
                 if (guiones.indexOf("-") == -1) {
-                    ps.println("¡Ganaste!");
+                    // Titulo del juego
+                    ps.println("***JUEGO DEL AHORCADO - CLIENTE**\n");
+                    // Muestra el ahorcado completo o parcial
+                    for (int i = 0; i < intentos; i++) {
+                        ps.println(ahorcado2[i]);
+                    }
+                    for (int i = intentos; i < 6; i++) {
+                        ps.println(ahorcado[i]);
+                    }
+                    ps.println("\n¡Ganaste!");
                     ps.println("La palabra era: " + palabra);
-                    ps.println("¿Quieres jugar de nuevo? (s/n)");
+                    ps.print("\n¿Quieres jugar de nuevo? (s/n): ");
                     ps.println("#");
                     ps.flush();
                     respuesta = br.readLine();
@@ -165,7 +174,7 @@ public class ServidorBuffer {
                             guiones.append("-");
                         }
                         ahorcado[0] = "  +---+";
-                        ahorcado[1] = "  |   |";
+                        ahorcado[1] = "      |";
                         ahorcado[2] = "      |";
                         ahorcado[3] = "      |";
                         ahorcado[4] = "      |";
