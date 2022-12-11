@@ -80,18 +80,50 @@ public class JuegoAhorcado {
 
             // Si la palabra ya no tiene guiones, el jugador ha ganado
             if (guiones.indexOf("-") == -1) {
-                ps.println("¡Ganaste! La palabra era " + palabra);
-                break;
-
+                ps.println("¡Ganaste! La palabra era " + palabra + "¿Quieres jugar de nuevo? (s/n)");
+                ps.flush();
+                String respuesta = br.readLine();
+                if (respuesta.equals("s")) {
+                    // Selecciona una palabra al azar
+                    aleatorio = rand.nextInt(palabras.length);
+                    palabra = palabras[aleatorio];
+                    // Inicializa el contador de intentos
+                    intentos = 0;
+                    // Crea una cadena de guiones para mostrar la palabra
+                    guiones = new StringBuilder();
+                    for (int i = 0; i < palabra.length(); i++) {
+                        guiones.append("-");
+                    }
+                } else {
+                    break;
+                }
+                
+             
             }
             // Si el contador de intentos es igual a 6, el jugador ha perdido
             if (intentos == 6) {
-                ps.println("Perdiste! La palabra era " + palabra);
+                ps.println("Perdiste! La palabra era " + palabra + "¿Quieres jugar de nuevo? (s/n)");
+                //Preguntar si quiere jugar de nuevo
+                ps.flush();
+                String respuesta = br.readLine();
+                if (respuesta.equals("s")) {
+                    // Selecciona una palabra al azar
+                    aleatorio = rand.nextInt(palabras.length);
+                    palabra = palabras[aleatorio];
+                    // Inicializa el contador de intentos
+                    intentos = 0;
+                    // Crea una cadena de guiones para mostrar la palabra
+                    guiones = new StringBuilder();
+                    for (int i = 0; i < palabra.length(); i++) {
+                        guiones.append("-");
+                    }
+                } else {
+                    break;
+                }
             }
         }
 
-        // Cerrar el socket
-        socket.close();
+
         // Cerrar el servidor
         serverSocket.close();
     }

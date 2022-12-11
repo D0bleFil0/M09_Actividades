@@ -41,15 +41,20 @@ public class Cliente {
                 System.out.print("\033[H\033[2J");
             }
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            
 
             // recibe la palabra del servidor y la muestra
 
-            while ((line = br.readLine()) != null) {
+            boolean b = true;
 
-                PrintStream ps = new PrintStream(socket.getOutputStream(), true);
-                Scanner Scanner = new Scanner(System.in);
+            while (b) {
 
+            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            PrintStream ps = new PrintStream(socket.getOutputStream(), true);
+            Scanner Scanner = new Scanner(System.in);
+
+                ps.flush();
+                line = br.readLine();
                 // borra la pantalla
                 System.out.print("\033[H\033[2J");
                 // se muestra la palabra
@@ -58,14 +63,21 @@ public class Cliente {
 
                 // pide una letra al cliente
                 String letra = Scanner.nextLine();
-                // limpia el buffer
-                ps.flush();
+                
                 // envia la letra al servidor
                 ps.println(letra);
+                // limpia el buffer
+                ps.flush();
 
             }
+            
+            socket.close();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }   
+
+
 }
