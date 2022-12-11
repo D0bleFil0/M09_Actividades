@@ -145,6 +145,10 @@ public class ServidorBuffer {
 
                 // Si el contador de intentos es 6, el jugador ha perdido
                 if (intentos == 6) {
+                    //imprime el ahorcado completo
+                    for (int i = 0; i < ahorcado2.length; i++) {
+                        ps.println(ahorcado2[i]);
+                    }
                     ps.println("¡Perdiste!");
                     ps.println("La palabra era: " + palabra);
                     ps.println("¿Quieres jugar de nuevo? (s/n)");
@@ -188,7 +192,7 @@ public class ServidorBuffer {
                 ps.println("Palabra: " + guiones);
                 ps.println("Intentos: " + intentos + "/6");
                 // Pide una letra
-                ps.println("Ingresa una letra: ");
+                ps.print("\nIngresa una letra: ");
                 ps.println("#");
                 ps.flush();
                 // recibe la letra de un cliente
