@@ -9,7 +9,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Cliente {
+public class ClienteAhorcado {
 
     public static void main(String[] args) throws Exception {
         String line;
@@ -45,11 +45,8 @@ public class Cliente {
             PrintStream ps = new PrintStream(socket.getOutputStream(), true);
             Scanner Scanner = new Scanner(System.in);
 
-            // recibe la palabra del servidor y la muestra
-
+            // Mientras haya lineas que leer
             while ((line = br.readLine()) != null) {
-
-                
 
                 // borra la pantalla
                 System.out.print("\033[H\033[2J");
@@ -63,18 +60,13 @@ public class Cliente {
                 ps.flush();
                 // envia la letra al servidor
                 ps.println(letra);
-
-                // si se acaba el juego pregunta si quiere volver a jugar
-
             }
-            
-            socket.close();
 
+            socket.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }   
-
+    }
 
 }

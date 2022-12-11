@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-public class JuegoAhorcado {
+public class ServidorAhorcado {
 
     private static ServerSocket serverSocket;
 
@@ -55,7 +55,7 @@ public class JuegoAhorcado {
         String letra = "";
         // Bucle de juego
         while (intentos < 6) {
-         
+
             // Muestra la palabra
             ps.println("Palabra: " + guiones + " [Intentos: " + intentos + "]");
 
@@ -75,7 +75,7 @@ public class JuegoAhorcado {
                 // Si la letra no está en la palabra, aumenta el contador de intentos
                 intentos++;
                 // Imprime los intentos
-                
+
             }
 
             // Si la palabra ya no tiene guiones, el jugador ha ganado
@@ -97,13 +97,12 @@ public class JuegoAhorcado {
                 } else {
                     break;
                 }
-                
-             
+
             }
             // Si el contador de intentos es igual a 6, el jugador ha perdido
             if (intentos == 6) {
                 ps.println("Perdiste! La palabra era " + palabra + "¿Quieres jugar de nuevo? (s/n)");
-                //Preguntar si quiere jugar de nuevo
+                // Preguntar si quiere jugar de nuevo
                 ps.flush();
                 String respuesta = br.readLine();
                 if (respuesta.equals("s")) {
@@ -122,7 +121,6 @@ public class JuegoAhorcado {
                 }
             }
         }
-
 
         // Cerrar el servidor
         serverSocket.close();
