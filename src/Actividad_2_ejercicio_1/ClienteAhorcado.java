@@ -10,7 +10,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ClienteBuffer {
+public class ClienteAhorcado {
 
 	public static void main(String[] args) throws IOException {
 

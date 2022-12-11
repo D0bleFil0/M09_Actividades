@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-public class ServidorBuffer {
+public class ServidorAhorcado {
 
     private static ServerSocket serverSocket;
 
