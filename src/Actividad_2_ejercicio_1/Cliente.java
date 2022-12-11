@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Cliente {
+
     public static void main(String[] args) throws Exception {
         String line;
         try {
@@ -20,17 +21,48 @@ public class Cliente {
             socket.connect(addr);
             System.out.println("Conectado...");
             System.out.println();
+
+            // cuenta durante 5 segundos y despues borra la pantalla
+            for (int i = 5; i > 0; i--) {
+                System.out.print("\033[H\033[2J");
+                System.out.println("Juego del ahorcado");
+                // imprime el ahorcado
+                System.out.println("  +---+");
+                System.out.println("  |   |");
+                System.out.println("  O   |");
+                System.out.println(" /|\\  |");
+                System.out.println(" / \\  |");
+                System.out.println("      |");
+                System.out.println("=========");
+
+                System.out.println("Comienza en " + i);
+                Thread.sleep(1000);
+                // borra la pantalla
+                System.out.print("\033[H\033[2J");
+            }
+
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-            PrintStream ps = new PrintStream(socket.getOutputStream(), true);
-            Scanner Scanner = new Scanner(System.in);
+
+            // recibe la palabra del servidor y la muestra
 
             while ((line = br.readLine()) != null) {
-                // borrar la pantalla
+
+                PrintStream ps = new PrintStream(socket.getOutputStream(), true);
+                Scanner Scanner = new Scanner(System.in);
+
+                // borra la pantalla
                 System.out.print("\033[H\033[2J");
+                // se muestra la palabra
+
                 System.out.println(line);
+
+                // pide una letra al cliente
                 String letra = Scanner.nextLine();
+                // limpia el buffer
+                ps.flush();
+                // envia la letra al servidor
                 ps.println(letra);
-                
+
             }
         } catch (IOException e) {
             e.printStackTrace();
