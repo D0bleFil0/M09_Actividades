@@ -1,5 +1,9 @@
 hola
 perro
 gato
-pajaro
+jamon
+amigo
 raton
+casa
+coche
+moto
