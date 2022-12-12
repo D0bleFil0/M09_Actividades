@@ -89,7 +89,7 @@ public class ServidorAhorcado {
             // BLOQUE DE CODIGO DEL JUEGO
             // Crear un array de strings para dibujar el ahorcado
             String[] ahorcado = new String[6];
-            ahorcado[0] = "    :---+";
+            ahorcado[0] = "    +---+";
             ahorcado[1] = "        |";
             ahorcado[2] = "        |";
             ahorcado[3] = "        |";
@@ -186,8 +186,8 @@ public class ServidorAhorcado {
                         }
                     }
 
-                    // Si el contador de intentos es 6, el jugador ha perdido
-                    if (intentos == 6) {
+                    // Si el contador de intentos es 5, el jugador ha perdido
+                    if (intentos == 5) {
                         ps.println("  ***JUEGO DEL AHORCADO - CLIENTE**\n");
                         // Se imprime el ahorcado completo
                         for (int i = 0; i < ahorcado2.length; i++) {
@@ -228,7 +228,7 @@ public class ServidorAhorcado {
 
                     // Muestra la palabra
                     ps.println("  Palabra: " + guiones);
-                    ps.println("  Intentos: " + intentos + "/6");
+                    ps.println("  Intentos: " + intentos + "/5");
                     // Pide una letra
                     ps.print("\n  Ingresa una letra: ");
                     ps.println("#");
