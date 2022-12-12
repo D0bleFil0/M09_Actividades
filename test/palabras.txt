@@ -1,3 +1,5 @@
-casa
-gato
+hola
 perro
+gato
+pajaro
+raton

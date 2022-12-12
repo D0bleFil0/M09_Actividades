@@ -13,11 +13,13 @@ import java.util.Scanner;
 public class ClienteAhorcado {
 
 	public static void main(String[] args) throws IOException {
-
+		// Bloque try-catch para capturar errores de conexion
 		try {
+			// Crea un socket para conectarse al servidor
 			Socket socket = new Socket();
 			System.out.println("**JUEGO DEL AHORCADO - CLIENTE**");
 			System.out.println("Esperando Conexion...");
+			// Crea una direccion para conectarse al servidor
 			InetSocketAddress addr = new InetSocketAddress("localhost", 5050);
 			socket.connect(addr);
 			System.out.println("Conectado...");
@@ -45,7 +47,7 @@ public class ClienteAhorcado {
 				// limpia la pantalla
 				System.out.print("\033[H\033[2J");
 
-				// Imprime la informacion del ahorcado que nos envia el servidor
+				// Creo un buffer para leer los datos que nos envia el servidor
 				BufferedReader br = new BufferedReader(new InputStreamReader(is));
 				// Lee el buffer hasta que encuentre un !
 				char buffer[] = new char[1];
@@ -56,7 +58,7 @@ public class ClienteAhorcado {
 					System.out.print(buffer);
 				}
 
-				// pide una letra al cliente
+				// Pide una letra al cliente
 				String letra = Scanner.nextLine();
 
 				// Bucle while para evitar que se envíe algo distinto de 1 o 2
@@ -66,18 +68,16 @@ public class ClienteAhorcado {
 				}
 				// limpia el buffer
 				ps.flush();
-
+				// Si la letra es 1, envia la primera letra al servidor
 				if (letra.equals("1")) {
 					// envia la primera letra al servidor
 					ps.println(letra.charAt(0));
-
+					// Si la letra es 2, cierra el programa
 				} else if (letra.equals("2")) {
 					// envia la primera letra al servidor
-
 					System.out.println("Adios");
 					System.exit(0);
-				} 
-			
+				}
 			}
 
 			// Variable para salir del bucle
@@ -127,9 +127,9 @@ public class ClienteAhorcado {
 
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
-			//cierra el programa
+			// cierra el programa
 			System.exit(0);
-			
+
 		}
 	}
 }
