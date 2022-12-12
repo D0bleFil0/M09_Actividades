@@ -138,14 +138,6 @@ public class ServidorAhorcado {
                     main(args);
 
                 }
-                if (!respuesta.equals("1") && !respuesta.equals("2")) {
-                    ps.print("e");
-                    ps.println("  Opcion incorrecta");
-                    ps.println("  Presione enter para continuar...");
-                    ps.println("#");
-                    ps.flush();
-                    br.readLine();
-                }
                 
             }
 
@@ -176,7 +168,7 @@ public class ServidorAhorcado {
                     respuesta = br.readLine();
                     // Si la respuesta es s, se reinicia el juego
                     if (respuesta.equals("s")) {
-                        aleatorio = rand.nextInt(palabras2.length);
+                        aleatorio = rand.nextInt(palabras.length);
                         palabra = palabras[aleatorio];
                         intentos = 0;
                         guiones = new StringBuilder();
@@ -206,7 +198,7 @@ public class ServidorAhorcado {
                     respuesta = br.readLine();
                     // Si la respuesta es s, se reinicia el juego
                     if (respuesta.equals("s")) {
-                        aleatorio = rand.nextInt(palabras2.length);
+                        aleatorio = rand.nextInt(palabras.length);
                         palabra = palabras[aleatorio];
                         intentos = 0;
                         guiones = new StringBuilder();
@@ -274,7 +266,13 @@ public class ServidorAhorcado {
             // vuelve al inicio del programa
             main(args);
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            // Cierra el socket y el servidor
+            socket.close();
+            serverSocket.close();
+            System.out.println("  ¡Cliente desconectado!");
+            System.out.println("");
+            // vuelve al inicio del programa
+             main(args);
         }
     }
 }

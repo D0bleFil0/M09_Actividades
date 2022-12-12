@@ -59,9 +59,9 @@ public class ClienteAhorcado {
 				// pide una letra al cliente
 				String letra = Scanner.nextLine();
 
-				// Bucle while para que no se pueda enviar una cadena vacia
-				while (letra.equals("")) {
-					// System.out.println("No se puede enviar una cadena vacia");
+				// Bucle while para evitar que se envíe algo distinto de 1 o 2
+				while (!letra.equals("1") && !letra.equals("2")) {
+					System.out.println("Solo se puede enviar 1 o 2");
 					letra = Scanner.nextLine();
 				}
 				// limpia el buffer
@@ -76,12 +76,10 @@ public class ClienteAhorcado {
 
 					System.out.println("Adios");
 					System.exit(0);
-				} else {
-					System.out.println("Opcion no valida");
-				}
-
+				} 
+			
 			}
-			// Si letra es igual a 2
+
 			// Variable para salir del bucle
 			exit = false;
 
@@ -129,6 +127,9 @@ public class ClienteAhorcado {
 
 		} catch (Exception e) {
 			System.out.println("Error: " + e.getMessage());
+			//cierra el programa
+			System.exit(0);
+			
 		}
 	}
 }
