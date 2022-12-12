@@ -1,6 +1,8 @@
 package Actividad_2_ejercicio_1;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -15,7 +17,48 @@ public class ServidorAhorcado {
     private static ServerSocket serverSocket;
 
     public static void main(String[] args) throws IOException, InterruptedException, NullPointerException {
-        Scanner scanner = new Scanner(System.in);
+        
+        // Variables
+
+                // GESTION DE FICHERO DE PALABRAS
+        // Crea un objeto de la clase File para leer el archivo de texto
+        File archivo = new File("palabras.txt");
+
+        // Comprueba si el archivo existe, si no, lo crea con el nombre palabras.txt
+        if (!archivo.exists()) {
+            archivo.createNewFile();
+        }
+        // Crea un array de String para guardar las palabras del archivo
+        try (BufferedReader obj = new BufferedReader(new FileReader(archivo))) {
+            String palabras[] = new String[100];
+            int contador = 0;
+            String linea = obj.readLine();
+            while (linea != null) {
+                palabras[contador] = linea;
+                contador++;
+                linea = obj.readLine();
+            }
+
+            //Elimina las posiciones vacias del array
+            String palabras2[] = new String[contador];
+            for (int i = 0; i < contador; i++) {
+                palabras2[i] = palabras[i];
+            }
+        
+        // variavle random
+        Random rand = new Random();
+        // Selecciona una palabra al azar
+        int aleatorio = rand.nextInt(palabras2.length);
+        String palabra = palabras2[aleatorio];
+        // Inicializa el contador de intentos
+        int intentos = 0;
+        // Crea una cadena de guiones para mostrar la palabra
+        StringBuilder guiones = new StringBuilder();
+        for (int i = 0; i < palabra.length(); i++) {
+            guiones.append("-");
+        }
+
+
 
         // Utilizamos la clase ServerSocket en el servidor
         serverSocket = new ServerSocket();
@@ -25,30 +68,19 @@ public class ServidorAhorcado {
         InetSocketAddress addr = new InetSocketAddress("localhost", 5050);
         // Asignamos el socket a la direccion
         serverSocket.bind(addr);
-        // Aceptamos la conexion
+        // Acepta la conexion
         Socket socket = serverSocket.accept();
         System.out.println("Cliente conectado...");
         System.out.println();
-        // Creamos un buffer para leer los datos que nos envia el cliente
+        // Crea un buffer para leer los datos que nos envia el cliente
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+        // Crea un buffer para enviar datos al cliente
         PrintStream ps = new PrintStream(socket.getOutputStream(), true);
+        // Crea un scanner para leer la letra
+        Scanner scanner = new Scanner(System.in);
 
-        Random rand = new Random();
-        // Crea una lista de palabras
-        String[] palabras = {
-                "casa",
-                "gato",
-        };
-        // Selecciona una palabra al azar
-        int aleatorio = rand.nextInt(palabras.length);
-        String palabra = palabras[aleatorio];
-        // Inicializa el contador de intentos
-        int intentos = 0;
-        // Crea una cadena de guiones para mostrar la palabra
-        StringBuilder guiones = new StringBuilder();
-        for (int i = 0; i < palabra.length(); i++) {
-            guiones.append("-");
-        }
+
+
 
         // Crear un array de strings para dibujar el ahorcado
         String[] ahorcado = new String[6];
@@ -72,6 +104,7 @@ public class ServidorAhorcado {
         String letra;
         String respuesta = "1";
 
+        // Bucle del menu principal en un try catch para controlar las excepciones
         try {
             // Crea una variable para salir del bucle
             boolean exit = false;
@@ -105,12 +138,21 @@ public class ServidorAhorcado {
                     main(args);
 
                 }
+                if (!respuesta.equals("1") && !respuesta.equals("2")) {
+                    ps.print("e");
+                    ps.println("  Opcion incorrecta");
+                    ps.println("  Presione enter para continuar...");
+                    ps.println("#");
+                    ps.flush();
+                    br.readLine();
+                }
+                
             }
 
             // Devuelve el valor de la variable exit al valor inicial
             exit = false;
 
-            // Bucle de juego
+            // Bucle de juego en un try catch para controlar las excepciones
             while (!exit) {
                 // Vacía el buffer
                 ps.flush();
@@ -130,27 +172,28 @@ public class ServidorAhorcado {
                     ps.print("\n  ¿Quieres jugar de nuevo? (s/n): ");
                     ps.println("#");
                     ps.flush();
+                    // Lee la respuesta del cliente
                     respuesta = br.readLine();
+                    // Si la respuesta es s, se reinicia el juego
                     if (respuesta.equals("s")) {
-                        aleatorio = rand.nextInt(palabras.length);
+                        aleatorio = rand.nextInt(palabras2.length);
                         palabra = palabras[aleatorio];
                         intentos = 0;
                         guiones = new StringBuilder();
                         for (int i = 0; i < palabra.length(); i++) {
                             guiones.append("-");
                         }
-
+                    // Si la respuesta es n, se sale del juego
                     } else {
                         exit = true;
                         ps.print("e");
-
                     }
                 }
 
                 // Si el contador de intentos es 6, el jugador ha perdido
                 if (intentos == 6) {
                     ps.println("  ***JUEGO DEL AHORCADO - CLIENTE**\n");
-                    // imprime el ahorcado completo
+                    // Se imprime el ahorcado completo
                     for (int i = 0; i < ahorcado2.length; i++) {
                         ps.println(ahorcado2[i]);
                     }
@@ -159,21 +202,22 @@ public class ServidorAhorcado {
                     ps.print("\n  ¿Quieres jugar de nuevo? (s/n): ");
                     ps.println("#");
                     ps.flush();
+                    // Lee la respuesta del cliente
                     respuesta = br.readLine();
+                    // Si la respuesta es s, se reinicia el juego
                     if (respuesta.equals("s")) {
-                        aleatorio = rand.nextInt(palabras.length);
+                        aleatorio = rand.nextInt(palabras2.length);
                         palabra = palabras[aleatorio];
                         intentos = 0;
                         guiones = new StringBuilder();
                         for (int i = 0; i < palabra.length(); i++) {
                             guiones.append("-");
                         }
+                    // Si la respuesta es n, se sale del juego
                     } else {
                         exit = true;
                         ps.print("e");
-
                     }
-
                 }
                 // Titulo del juego
                 ps.println("  ***JUEGO DEL AHORCADO - CLIENTE**\n");
@@ -184,7 +228,6 @@ public class ServidorAhorcado {
                 for (int i = intentos; i < 6; i++) {
                     ps.println(ahorcado[i]);
                 }
-
                 ps.println();
 
                 // Muestra la palabra
@@ -207,10 +250,7 @@ public class ServidorAhorcado {
                 } else {
                     // Si la letra no está en la palabra, aumenta el contador de intentos
                     intentos++;
-                    // Imprime los intentos
-
                 }
-
             }
             // Cierra el Scanner
             scanner.close();
@@ -237,4 +277,5 @@ public class ServidorAhorcado {
             System.out.println("Error: " + e.getMessage());
         }
     }
+}
 }
