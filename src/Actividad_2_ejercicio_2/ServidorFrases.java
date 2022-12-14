@@ -21,7 +21,7 @@ public class ServidorFrases {
             Frases stub = (Frases) UnicastRemoteObject.exportObject(obj, 0);
             // Lo registra en el registro
             registro.rebind("Frases", stub);
-            System.out.println("Servidor listo");
+            System.out.println("***Servidor preparado***");
         } catch (Exception e) {
             System.err.println("Excepción del servidor: " + e.toString());
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class ServidorFrases {
                     resultado = "Frase en minúsculas: " + fraseMinusculas(frase);
                     break;
                 case "F":
-                    System.exit(0);
+                    resultado = "Fin del programa";
                     break;
                 default:
                     resultado = "Opción incorrecta";
