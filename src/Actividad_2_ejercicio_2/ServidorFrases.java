@@ -1,6 +1,8 @@
 package Actividad_2_ejercicio_2;
 
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -8,44 +10,130 @@ import java.rmi.RemoteException;
 
 public class ServidorFrases {
 
-    // Crea la interfaz remota
-    public interface Frases extends Remote {
-        // Declaración del método remoto
-        public String getFrase() throws RemoteException;
-    }
-
-    // Implementación la interfaz remota
-    public static class FrasesImpl implements Frases {
-        // Frases que se van a devolver
-        private String[] frases = {"La vida es bella", "El que la sigue la consigue", "El que madruga, dios le ayuda"};
-        // Contador para recorrer el array
-        private int contador = 0;
-        // Implementación del método remoto
-        public String getFrase() throws RemoteException {
-            // Si el contador llega al final del array, se reinicia
-            if (contador == frases.length) {
-                contador = 0;
-            }
-            // Se devuelve la frase y se incrementa el contador
-            return frases[contador++];
-        }
-    }
-    // Metodo principal
-    public static void main(String[] args) throws RemoteException {
+     // Metodo principal
+     public static void main(String[] args) throws RemoteException {
         
         try {
             // Crea el registro en el puerto 1099
             Registry registro = LocateRegistry.createRegistry(1099);
             // Instancia el objeto remoto
             FrasesImpl obj = new FrasesImpl();
-            // Se exporta el objeto remoto a un stub
-            registro.rebind("Frases", obj);
-            
-            System.out.println("***Servidor listo***");
+            // Crea el stub
+            Frases stub = (Frases) UnicastRemoteObject.exportObject(obj, 0);
+            // Lo registra en el registro
+            registro.rebind("Frases", stub);
+            System.out.println("Servidor listo");
         } catch (Exception e) {
             System.err.println("Excepción del servidor: " + e.toString());
             e.printStackTrace();
         }
     }
 
+    // Crea la interfaz remota
+    public interface Frases extends Remote {
+        // Crea los métodos remotos
+        public String getMenu() throws RemoteException;
+        public String longitudFrase(String frase) throws RemoteException;
+        public String numeroPalabras(String frase) throws RemoteException;
+        public String numeroVocales(String frase) throws RemoteException;
+        public String fraseInvertida(String frase) throws RemoteException;
+        public String fraseMayusculas(String frase) throws RemoteException;
+        public String fraseMinusculas(String frase) throws RemoteException;
+        public String elegirOpcion(String opcion, String frase) throws RemoteException;
+    }
+
+    // Crea la clase que implementa la interfaz remota
+
+    public static class FrasesImpl implements Frases {
+        
+        // Crea método remoto para menu, al que se le pasa la frase y devuelve el resultado
+        public String getMenu() throws RemoteException {
+            
+            String[] menu ={"(L) Longitud de la frase ",
+                "(P) Número de palabras de la frase, ","(V) Número de vocales de la frase, ",
+                "(I) Frase invertida, ","(M) Frase en mayúsculas, ","(m) Frase en minúsculas, ",
+                "(S) Salir del programa "};
+            String menuString = "";
+            for (int i = 0; i < menu.length; i++) {
+                menuString += menu[i] + "";
+            }
+            return menuString;
+        }
+
+
+        // Metodo remoto para elegir la opcion y devuelve el resultado
+        public String elegirOpcion(String opcion, String frase) throws RemoteException {
+            String resultado = "";
+            switch (opcion) {
+                case "L":
+                    resultado = "La longitud de la frase es: " + longitudFrase(frase);
+                case "P":
+                    resultado = "El numero de palabras de la frase es: " + numeroPalabras(frase);
+                case "V":
+                    resultado = "El numero de vocales de la frase es: " + numeroVocales(frase);
+                case "I":
+                    resultado = "La frase invertida es: " + fraseInvertida(frase);
+                case "M":
+                    resultado = "La frase en mayusculas es: " + fraseMayusculas(frase);
+                case "m":
+                    resultado = "La frase en minusculas es: " + fraseMinusculas(frase);
+                case "S":
+                    resultado = "Saliendo del programa";
+            }
+            return resultado;
+        }
+        
+
+
+        // Metodo para longitud de la frase
+        public String longitudFrase(String frase) throws RemoteException {
+            String longitud = Integer.toString(frase.length());
+            return longitud;
+        }
+
+        // Metodo para numero de palabras de la frase
+        public String numeroPalabras(String frase) throws RemoteException {
+            int numeroPalabras = 0;
+            for (int i = 0; i < frase.length(); i++) {
+                if (frase.charAt(i) == ' ') {
+                    numeroPalabras++;
+                }
+            }
+            String numeroPalabras2 = Integer.toString(numeroPalabras) +1;
+            return numeroPalabras2;
+        }
+
+        // Metodo para numero de vocales de la frase
+        public String numeroVocales(String frase) throws RemoteException {
+            int numeroVocales = 0;
+            for (int i = 0; i < frase.length(); i++) {
+                if (frase.charAt(i) == 'a' || frase.charAt(i) == 'e' || frase.charAt(i) == 'i' || frase.charAt(i) == 'o' || frase.charAt(i) == 'u') {
+                    numeroVocales++;
+                }
+            }
+            String numeroVocales2 = Integer.toString(numeroVocales);
+            // Devuelve el numero de vocales en string
+            return numeroVocales2;
+        }
+
+        // Metodo para frase invertida
+        public String fraseInvertida(String frase) throws RemoteException {
+            String fraseInvertida = "";
+            for (int i = frase.length() - 1; i >= 0; i--) {
+                fraseInvertida += frase.charAt(i);
+            }
+            return fraseInvertida;
+        }
+
+        // Metodo para frase en mayusculas
+        public String fraseMayusculas(String frase) throws RemoteException {
+            return frase.toUpperCase();
+        }
+
+        // Metodo para frase en minusculas
+        public String fraseMinusculas(String frase) throws RemoteException {
+            return frase.toLowerCase();
+        }
+
+    }
 }
