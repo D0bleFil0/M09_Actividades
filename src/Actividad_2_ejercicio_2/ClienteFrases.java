@@ -38,6 +38,8 @@ public class ClienteFrases {
                 // Pausa el programa hasta que el usuario pulse una tecla
                 System.out.println("\nPulsa una tecla para continuar...");
                 System.in.read();
+                // Cierra el Scanner
+                sc.close();
             }
         } catch (Exception e) {
             System.err.println("Excepción del cliente: " + e.toString());
