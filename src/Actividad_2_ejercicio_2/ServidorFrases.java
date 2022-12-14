@@ -51,7 +51,7 @@ public class ServidorFrases {
             String[] menu ={"(L) Longitud de la frase ",
                 "(P) Número de palabras de la frase, ","(V) Número de vocales de la frase, ",
                 "(I) Frase invertida, ","(M) Frase en mayúsculas, ","(m) Frase en minúsculas, ",
-                "(S) Salir del programa "};
+                "(F) Salir del programa "};
             String menuString = "";
             for (int i = 0; i < menu.length; i++) {
                 menuString += menu[i] + "";
@@ -65,23 +65,32 @@ public class ServidorFrases {
             String resultado = "";
             switch (opcion) {
                 case "L":
-                    resultado = "La longitud de la frase es: " + longitudFrase(frase);
+                    resultado = "Longitud de la frase: " + longitudFrase(frase);
+                    break;
                 case "P":
-                    resultado = "El numero de palabras de la frase es: " + numeroPalabras(frase);
+                    resultado = "Número de palabras: " + numeroPalabras(frase);
+                    break;
                 case "V":
-                    resultado = "El numero de vocales de la frase es: " + numeroVocales(frase);
+                    resultado = "Número de vocales: " + numeroVocales(frase);
+                    break;
                 case "I":
-                    resultado = "La frase invertida es: " + fraseInvertida(frase);
+                    resultado = "Frase invertida: " + fraseInvertida(frase);
+                    break;
                 case "M":
-                    resultado = "La frase en mayusculas es: " + fraseMayusculas(frase);
+                    resultado = "Frase en mayúsculas: " + fraseMayusculas(frase);
+                    break;
                 case "m":
-                    resultado = "La frase en minusculas es: " + fraseMinusculas(frase);
-                case "S":
-                    resultado = "Saliendo del programa";
+                    resultado = "Frase en minúsculas: " + fraseMinusculas(frase);
+                    break;
+                case "F":
+                    System.exit(0);
+                    break;
+                default:
+                    resultado = "Opción incorrecta";
+                    break;
             }
             return resultado;
         }
-
 
 
         // Metodo para longitud de la frase

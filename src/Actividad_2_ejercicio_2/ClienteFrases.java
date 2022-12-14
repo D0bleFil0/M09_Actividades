@@ -18,8 +18,7 @@ public class ClienteFrases {
             // Crea el objeto Scanner
             Scanner sc = new Scanner(System.in);
             while (true) {
-                //Borra la pantalla
-                System.out.print("\033[H\033[2J");
+
                 // Llama al método remoto de menu
                 System.out.println(stub.getMenu());
                 // Pide al usuario que introduzca una opción
@@ -32,15 +31,10 @@ public class ClienteFrases {
                 String resultado = stub.elegirOpcion(opcion, frase);
                 // Muestra el resultado
                 System.out.println(resultado);
-                if (opcion.equalsIgnoreCase("S")) {
-                    break;
-                }
-                // Pausa el programa hasta que el usuario pulse una tecla
-                System.out.println("\nPulsa una tecla para continuar...");
-                System.in.read();
-                // Cierra el Scanner
-                sc.close();
+   
+
             }
+            
         } catch (Exception e) {
             System.err.println("Excepción del cliente: " + e.toString());
             e.printStackTrace();
