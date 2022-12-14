@@ -2,7 +2,6 @@ package Actividad_2_ejercicio_2;
 
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.server.UnicastRemoteObject;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -31,7 +30,7 @@ public class ServidorFrases {
             return frases[contador++];
         }
     }
-    // Frases que se van a devolver
+    // Metodo principal
     public static void main(String[] args) throws RemoteException {
         
         try {
@@ -39,11 +38,10 @@ public class ServidorFrases {
             Registry registro = LocateRegistry.createRegistry(1099);
             // Instancia el objeto remoto
             FrasesImpl obj = new FrasesImpl();
-            // Crea el stub
-            Frases stub = (Frases) UnicastRemoteObject.exportObject(obj, 0);
-            // Lo registra en el registro
-            registro.rebind("Frases", stub);
-            System.out.println("Servidor listo");
+            // Se exporta el objeto remoto a un stub
+            registro.rebind("Frases", obj);
+            
+            System.out.println("***Servidor listo***");
         } catch (Exception e) {
             System.err.println("Excepción del servidor: " + e.toString());
             e.printStackTrace();

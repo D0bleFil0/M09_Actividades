@@ -13,7 +13,6 @@ public interface ClienteFrases {
         try {
             // Se obtiene el registro en el puerto 1099 dentro de un bucle
             Registry registry = LocateRegistry.getRegistry(1099);
-
             // Se busca el objeto remoto, se hace un cast y se guarda en una variable
             ServidorFrases.Frases obj = (ServidorFrases.Frases) registry.lookup("Frases");
             // Se llama al método remoto
