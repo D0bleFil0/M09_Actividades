@@ -2,7 +2,6 @@ package Actividad_2_ejercicio_2;
 
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Scanner;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -82,7 +81,7 @@ public class ServidorFrases {
             }
             return resultado;
         }
-        
+
 
 
         // Metodo para longitud de la frase
