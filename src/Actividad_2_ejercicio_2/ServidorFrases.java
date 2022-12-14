@@ -7,8 +7,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 
-
-
 public class ServidorFrases {
 
     // Crea la interfaz remota
