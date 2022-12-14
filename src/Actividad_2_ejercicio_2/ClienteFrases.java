@@ -31,6 +31,7 @@ public class ClienteFrases {
                 String resultado = stub.elegirOpcion(opcion, frase);
                 // Muestra el resultado
                 System.out.println(resultado);
+                System.out.println("\n");
    
 
             }
