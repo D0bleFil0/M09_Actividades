@@ -65,7 +65,6 @@ public class ServidorFrases {
     }
 
     // Crea la clase que implementa la interfaz remota
-
     public static class FrasesImpl implements Frases {
 
         // Crea método remoto para menu, al que se le pasa la frase y devuelve el resultado
