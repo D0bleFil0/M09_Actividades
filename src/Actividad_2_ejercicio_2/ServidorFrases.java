@@ -73,7 +73,7 @@ public class ServidorFrases {
             for (int i = 0; i < menu.length; i++) {
                 menuString += menu[i] + "";
             }
-            System.out.println(menuString);
+            
             return menuString;
         }
 
