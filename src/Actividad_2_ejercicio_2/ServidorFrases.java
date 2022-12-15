@@ -68,8 +68,7 @@ public class ServidorFrases {
 
     public static class FrasesImpl implements Frases {
 
-        // Crea método remoto para menu, al que se le pasa la frase y devuelve el
-        // resultado
+        // Crea método remoto para menu, al que se le pasa la frase y devuelve el resultado
         public String getMenu() throws RemoteException {
 
             String[] menu = { " (L) Longitud de la frase, ",
