@@ -29,7 +29,6 @@ public class ClienteFrases {
                 System.out.print("\nIntroduce una frase: ");
                 String frase = sc.nextLine();
                 // Llama al metodo remoto de elegirOpcion
-                stub.elegirOpcion(opcion, frase);
                 String resultado = stub.elegirOpcion(opcion, frase);
                 // Muestra el resultado
                 System.out.println(resultado);
