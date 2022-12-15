@@ -16,7 +16,12 @@ public class ClienteFrases {
             ServidorFrases.Frases stub = (ServidorFrases.Frases) registro.lookup("Frases");
             // Crea el objeto Scanner
             Scanner sc = new Scanner(System.in);
-            while (true) {
+
+            String frase = "";
+
+            boolean salir = false;
+
+            while (!salir) {
                 // Borra la pantalla
                 System.out.print("\033[H\033[2J");
                 // Llama al método remoto de menu
@@ -24,25 +29,27 @@ public class ClienteFrases {
                 // Pide al usuario que introduzca una opción
                 System.out.print("\n Introduce una opción: ");
                 String opcion = sc.nextLine();
-                // Pide al usuario que introduzca una frase
-                System.out.print("\n Introduce una frase: ");
-                String frase = sc.nextLine();
-                // Llama al metodo remoto de elegirOpcion
-                String resultado = stub.elegirOpcion(opcion, frase);
-                // Muestra el resultado
-                System.out.println("");
-                System.out.println(resultado);
-                System.out.println("\n");
-
                 // Si la opción es F, sale del programa
                 if (opcion.equalsIgnoreCase("F")) {
                     System.out.println(" Saliendo del programa...");
-                    break;
-                }
+                    stub.elegirOpcion(opcion, "F");
+                    salir = true;
+                } else {
+                    // Pide al usuario que introduzca una frase
+                    System.out.print("\n Introduce una frase: ");
+                    frase = sc.nextLine();
 
-                // Pide al usuario que pulse intro para continuar
-                System.out.println(" Pulsa intro para continuar...");
-                sc.nextLine();
+                    // Llama al metodo remoto de elegirOpcion
+                    String resultado = stub.elegirOpcion(opcion, frase);
+                    // Muestra el resultado
+                    System.out.println("");
+                    System.out.println(resultado);
+                    System.out.println("\n");
+
+                    // Pide al usuario que pulse intro para continuar
+                    System.out.println(" Pulsa intro para continuar...");
+                    sc.nextLine();
+                }
 
             }
 

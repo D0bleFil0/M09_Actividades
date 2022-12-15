@@ -67,7 +67,8 @@ public class ServidorFrases {
     // Crea la clase que implementa la interfaz remota
     public static class FrasesImpl implements Frases {
 
-        // Crea método remoto para menu, al que se le pasa la frase y devuelve el resultado
+        // Crea método remoto para menu, al que se le pasa la frase y devuelve el
+        // resultado
         public String getMenu() throws RemoteException {
 
             String[] menu = { " (L) Longitud de la frase, ",
@@ -120,6 +121,10 @@ public class ServidorFrases {
                     System.out.println(" Fin del programa");
                     resultado = " Fin del programa";
                     break;
+                case "f":
+                    System.out.println(" ¡Cliente desconectado!");
+                    resultado = " Fin del programa";
+                    break;
                 default:
                     System.out.println(" Opción incorrecta");
                     resultado = " Opción incorrecta";
@@ -143,7 +148,7 @@ public class ServidorFrases {
                     numeroPalabras++;
                 }
             }
-            String numeroPalabras2 = Integer.toString(numeroPalabras+1);
+            String numeroPalabras2 = Integer.toString(numeroPalabras + 1);
             return numeroPalabras2;
         }
 
