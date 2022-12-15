@@ -143,7 +143,7 @@ public class ServidorFrases {
                     numeroPalabras++;
                 }
             }
-            String numeroPalabras2 = Integer.toString(numeroPalabras) + 1;
+            String numeroPalabras2 = Integer.toString(numeroPalabras+1);
             return numeroPalabras2;
         }
 
