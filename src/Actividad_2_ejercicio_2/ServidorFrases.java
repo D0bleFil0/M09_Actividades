@@ -25,6 +25,8 @@ public class ServidorFrases {
             // Notifica que el servidor está preparado
             System.out.println(" ***Servidor preparado***");
             System.out.println("");
+            System.out.println("");
+            System.out.println(" Pulse control + c para salir del programa");
             // Muestra lo que va haciendo el cliente
             System.out.println(" Esperando peticiones del cliente...");
             System.out.println("");
