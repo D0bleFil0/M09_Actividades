@@ -4,7 +4,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
-
 // Crea la clase cliente para ServidorFrases que implementa la interfaz remota
 public class ClienteFrases {
 
@@ -44,10 +43,12 @@ public class ClienteFrases {
                 // Pide al usuario que pulse intro para continuar
                 System.out.println(" Pulsa intro para continuar...");
                 sc.nextLine();
-                 
 
             }
-            
+
+            // Cierra el objeto Scanner
+            sc.close();
+
         } catch (Exception e) {
             System.err.println("Excepción del cliente: " + e.toString());
             e.printStackTrace();
