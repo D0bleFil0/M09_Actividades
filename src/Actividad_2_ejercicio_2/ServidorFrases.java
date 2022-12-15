@@ -88,41 +88,41 @@ public class ServidorFrases {
             String resultado = "";
             switch (opcion) {
                 case "L":
-                    System.out.println(frase);
+                    System.out.println(" Frase cliente: " + frase);
                     System.out.println(" Longitud de la frase: " + longitudFrase(frase));
                     resultado = " Longitud de la frase: " + longitudFrase(frase);
                     break;
                 case "P":
-                    System.out.println(frase);
+                    System.out.println(" Frase cliente: " + frase);
                     System.out.println(" Número de palabras: " + numeroPalabras(frase));
                     resultado = " Número de palabras: " + numeroPalabras(frase);
                     break;
                 case "V":
-                    System.out.println(frase);
+                    System.out.println(" Frase cliente: " + frase);
                     System.out.println(" Número de vocales: " + numeroVocales(frase));
                     resultado = " Número de vocales: " + numeroVocales(frase);
                     break;
                 case "I":
-                    System.out.println(frase);
+                    System.out.println(" Frase cliente: " + frase);
                     System.out.println(" Frase invertida: " + fraseInvertida(frase));
                     resultado = " Frase invertida: " + fraseInvertida(frase);
                     break;
                 case "M":
-                    System.out.println(frase);
+                    System.out.println(" Frase cliente: " + frase);
                     System.out.println(" Frase en mayúsculas: " + fraseMayusculas(frase));
                     resultado = " Frase en mayúsculas: " + fraseMayusculas(frase);
                     break;
                 case "m":
-                    System.out.println(frase);
+                    System.out.println(" Frase cliente: " + frase);
                     System.out.println(" Frase en minúsculas: " + fraseMinusculas(frase));
                     resultado = " Frase en minúsculas: " + fraseMinusculas(frase);
                     break;
                 case "F":
-                    System.out.println(" Fin del programa");
+                    System.out.println("\n ¡Cliente desconectado!");
                     resultado = " Fin del programa";
                     break;
                 case "f":
-                    System.out.println(" ¡Cliente desconectado!");
+                    System.out.println("\n ¡Cliente desconectado!");
                     resultado = " Fin del programa";
                     break;
                 default:
