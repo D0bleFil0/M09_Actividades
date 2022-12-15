@@ -24,23 +24,23 @@ public class ServidorFrases {
             //Borra la pantalla
             System.out.print("\033[H\033[2J");
             //Notifica que el servidor está preparado
-            System.out.println("***Servidor preparado***");
+            System.out.println(" ***Servidor preparado***");
             System.out.println("");
             //Muestra lo que va haciendo el cliente
-            System.out.println("Esperando peticiones del cliente...");
+            System.out.println(" Esperando peticiones del cliente...");
             System.out.println("");
 
             //Indica cuando se ha conectado el cliente
-            System.out.println("¡Cliente conectado!");
+            System.out.println(" ¡Cliente conectado!");
             System.out.println("");
 
             //Mostrar registro de lo que va haciendo el cliente
-            System.out.println("Registro de acciones realizadas por cliente:");
+            System.out.println(" Registro de acciones realizadas por cliente:");
             System.out.println("");
 
             // Si se produce una excepción, la muestra
         } catch (Exception e) {
-            System.err.println("Excepción del servidor: " + e.toString());
+            System.err.println(" Excepción del servidor: " + e.toString());
             e.printStackTrace();
         }
     }
@@ -65,7 +65,7 @@ public class ServidorFrases {
         // Crea método remoto para menu, al que se le pasa la frase y devuelve el resultado
         public String getMenu() throws RemoteException {
             
-            String[] menu ={"(L) Longitud de la frase ",
+            String[] menu ={" (L) Longitud de la frase, ",
                 "(P) Número de palabras de la frase, ","(V) Número de vocales de la frase, ",
                 "(I) Frase invertida, ","(M) Frase en mayúsculas, ","(m) Frase en minúsculas, ",
                 "(F) Salir del programa "};
@@ -83,36 +83,36 @@ public class ServidorFrases {
             String resultado = "";
             switch (opcion) {
                 case "L":
-                    System.out.println("Longitud de la frase: " + longitudFrase(frase));
-                    resultado = "Longitud de la frase: " + longitudFrase(frase);
+                    System.out.println(" Longitud de la frase: " + longitudFrase(frase));
+                    resultado = " Longitud de la frase: " + longitudFrase(frase);
                     break;
                 case "P":
-                    System.out.println("Número de palabras: " + numeroPalabras(frase));
-                    resultado = "Número de palabras: " + numeroPalabras(frase);
+                    System.out.println(" Número de palabras: " + numeroPalabras(frase));
+                    resultado = " Número de palabras: " + numeroPalabras(frase);
                     break;
                 case "V":
-                    System.out.println("Número de vocales: " + numeroVocales(frase));
-                    resultado = "Número de vocales: " + numeroVocales(frase);
+                    System.out.println(" Número de vocales: " + numeroVocales(frase));
+                    resultado = " Número de vocales: " + numeroVocales(frase);
                     break;
                 case "I":
-                    System.out.println("Frase invertida: " + fraseInvertida(frase));
-                    resultado = "Frase invertida: " + fraseInvertida(frase);
+                    System.out.println(" Frase invertida: " + fraseInvertida(frase));
+                    resultado = " Frase invertida: " + fraseInvertida(frase);
                     break;
                 case "M":
-                    System.out.println("Frase en mayúsculas: " + fraseMayusculas(frase));
-                    resultado = "Frase en mayúsculas: " + fraseMayusculas(frase);
+                    System.out.println(" Frase en mayúsculas: " + fraseMayusculas(frase));
+                    resultado = " Frase en mayúsculas: " + fraseMayusculas(frase);
                     break;
                 case "m":
-                    System.out.println("Frase en minúsculas: " + fraseMinusculas(frase));
-                    resultado = "Frase en minúsculas: " + fraseMinusculas(frase);
+                    System.out.println(" Frase en minúsculas: " + fraseMinusculas(frase));
+                    resultado = " Frase en minúsculas: " + fraseMinusculas(frase);
                     break;
                 case "F":
-                    System.out.println("Fin del programa");
-                    resultado = "Fin del programa";
+                    System.out.println(" Fin del programa");
+                    resultado = " Fin del programa";
                     break;
                 default:
-                    System.out.println("Opción incorrecta");
-                    resultado = "Opción incorrecta";
+                    System.out.println(" Opción incorrecta");
+                    resultado = " Opción incorrecta";
                     break;
             }
             return resultado;

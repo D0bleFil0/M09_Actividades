@@ -23,25 +23,26 @@ public class ClienteFrases {
                 // Llama al método remoto de menu
                 System.out.println(stub.getMenu());
                 // Pide al usuario que introduzca una opción
-                System.out.print("\nIntroduce una opción: ");
+                System.out.print("\n Introduce una opción: ");
                 String opcion = sc.nextLine();
                 // Pide al usuario que introduzca una frase
-                System.out.print("\nIntroduce una frase: ");
+                System.out.print("\n Introduce una frase: ");
                 String frase = sc.nextLine();
                 // Llama al metodo remoto de elegirOpcion
                 String resultado = stub.elegirOpcion(opcion, frase);
                 // Muestra el resultado
+                System.out.println("");
                 System.out.println(resultado);
                 System.out.println("\n");
 
                 // Si la opción es F, sale del programa
                 if (opcion.equalsIgnoreCase("F")) {
-                    System.out.println("Saliendo del programa...");
+                    System.out.println(" Saliendo del programa...");
                     break;
                 }
 
                 // Pide al usuario que pulse intro para continuar
-                System.out.println("Pulsa intro para continuar...");
+                System.out.println(" Pulsa intro para continuar...");
                 sc.nextLine();
                  
 
