@@ -28,14 +28,11 @@ public class ServidorFrases {
             // Muestra lo que va haciendo el cliente
             System.out.println(" Esperando peticiones del cliente...");
             System.out.println("");
-
-            // Indica cuando se ha conectado el cliente
-            System.out.println(" ¡Cliente conectado!");
-            System.out.println("");
-
+            
             // Mostrar registro de lo que va haciendo el cliente
-            System.out.println(" Registro de acciones realizadas por cliente:");
+            System.out.println(" Registro de peticiones realizadas por cliente:");
             System.out.println("");
+            
 
             // Si se produce una excepción, la muestra
         } catch (Exception e) {
@@ -122,7 +119,7 @@ public class ServidorFrases {
                     resultado = " Fin del programa";
                     break;
                 case "f":
-                    System.out.println("\n ¡Cliente desconectado!");
+                    System.out.println("\n ¡Cliente desconectado!\n");
                     resultado = " Fin del programa";
                     break;
                 default:
