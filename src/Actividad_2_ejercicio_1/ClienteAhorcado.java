@@ -1,7 +1,6 @@
 package Actividad_2_ejercicio_1;
 
 import java.io.BufferedReader;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
