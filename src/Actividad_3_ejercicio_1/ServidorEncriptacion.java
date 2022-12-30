@@ -58,8 +58,11 @@ public class ServidorEncriptacion {
     public interface Encriptar extends Remote {
         // Crea los métodos remotos
         public String mensajeMenu() throws RemoteException;
+
         public String encriptar(String frase) throws RemoteException;
+
         public String desencriptar(String frase) throws RemoteException;
+
         public String generarLlaves() throws RemoteException;
     }
 
@@ -69,7 +72,12 @@ public class ServidorEncriptacion {
         // Meotodo remoto para el menu, devuelve un String con las opciones
         public String mensajeMenu() throws RemoteException {
             String menu = " ***Cliente Encriptación Asimétrica RSA***\n"
-                    + " \n Para salir del programa, escriba FIN + C\n";
+                    + " \n Elija una opción:\n"
+                    + " \n 1. Encriptar"
+                    + " \n 2. Desencriptar"
+                    + " \n 3. Generar llaves nuevas"
+                    + " \n 4. Descargar llaves"
+                    + " \n 5. Salir";
             return menu;
         }
 
