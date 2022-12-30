@@ -1,7 +1,16 @@
 package Actividad_3_ejercicio_1;
 
+// Importa las librerías necesarias para ficheros
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+// Importa las librerías necesarias para RMI
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+// Importa las librerías necesarias para encriptación
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -11,14 +20,7 @@ import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.Cipher;
-import javax.print.event.PrintEvent;
 
-import java.rmi.registry.LocateRegistry;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
 
 public class ServidorEncriptacion {
 
