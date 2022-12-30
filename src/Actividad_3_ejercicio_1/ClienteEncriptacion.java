@@ -13,11 +13,11 @@ public class ClienteEncriptacion {
             ServidorEncriptacion.Encriptar stub = (ServidorEncriptacion.Encriptar) registro.lookup("Encriptar");
             // Crea el objeto Scanner
             Scanner sc = new Scanner(System.in);
-
+            // Variable para almacenar la frase
             String frase = "";
-
+            // Variable para salir del programa en bucle while
             boolean salir = false;
-
+            // Bucle while para repetir el programa hasta que el usuario introduzca la FIN
             while (!salir) {
                 // Borra la pantalla
                 System.out.print("\033[H\033[2J");
@@ -29,7 +29,6 @@ public class ClienteEncriptacion {
                 // Si la opción es F, sale del programa
                 if (frase.equalsIgnoreCase("FIN")) {
                     System.out.println(" Saliendo del programa...");
-                    
                     salir = true;
                 } else {
                     // Pide al usuario que introduzca una frase
@@ -48,7 +47,6 @@ public class ClienteEncriptacion {
                     System.out.println(" Pulsa intro para continuar...");
                     sc.nextLine();
                 }
-
             }
 
             // Cierra el objeto Scanner
