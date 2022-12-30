@@ -27,7 +27,7 @@ public class ClienteEncriptacion {
                 System.out.print("\nIntroduce una frase: ");
                 frase = sc.nextLine();
                 if (frase.equalsIgnoreCase("FIN")) {
-                    System.out.println(" Saliendo del programa...\n");
+                    System.out.println("\n\033[35mSaliendo del programa...\n");
                     salir = true;
                 } else {
 
@@ -37,10 +37,16 @@ public class ClienteEncriptacion {
                     String cifrar = stub.encriptar(frase);
                     // Muestra el resultado
                     System.out.println("");
-                    System.out.println("Mensaje encriptado: \n" + cifrar);
+                    // Guarda el mensaje encriptado en un array de 40 caracteres por linea
+                    String[] cifrado = cifrar.split("(?<=\\G.{40})");
+                    System.out.println("\033[31mMensaje encriptado: \033[0m \n");
+                    // Recorre el array y muestra el mensaje encriptado en color verde
+                    for (int i = 0; i < cifrado.length; i++) {
+                        System.out.println("\033[32m" + cifrado[i] + "\033[0m");
+                    }
                     System.out.println("");
                     String descifrar = stub.desencriptar(cifrar);
-                    System.out.println("Mensaje desencriptado: \n" + descifrar);
+                    System.out.println("\033[31mMensaje desencriptado: \033[0m \n" + "\033[32m\n" + descifrar +"\033[0m");
                     System.out.println("");
                     // Pide al usuario que pulse intro para continuar
                     System.out.println("\nPulsa intro para continuar...");

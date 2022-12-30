@@ -21,7 +21,6 @@ import javax.crypto.Cipher;
 // Importa las librerías necesarias para Base64
 import java.util.Base64;
 
-
 public class ServidorEncriptacion {
 
     // Metodo principal
@@ -38,10 +37,12 @@ public class ServidorEncriptacion {
             registro.rebind("Encriptar", stub);
             // Borra la pantalla
             System.out.print("\033[H\033[2J");
-            // Notifica que el servidor está preparado
+
+            // Notifica que el servidor está preparado en color azul
             System.out.println(" ***Servidor Encriptación Asimétrica RSA***\n"
                     + " \n Servidor preparado y esperando peticiones...\n"
                     + " \n Para salir del programa, pulse Ctrl + C\n"
+                    + "\033[31m"
                     + " \n -----------------------------------------"
                     + " \n |        Registro de solicitudes        |"
                     + " \n -----------------------------------------\n");
@@ -70,9 +71,8 @@ public class ServidorEncriptacion {
 
         // Meotodo remoto para el menu, devuelve un String con las opciones
         public String mensajeMenu() throws RemoteException {
-            String menu = " ***Servidor Encriptación Asimétrica RSA***\n"
-            + " \n Servidor preparado y esperando peticiones...\n"
-            + " \n Para salir del programa, pulse Ctrl + C\n";
+            String menu = " ***Cliente Encriptación Asimétrica RSA***\n"
+                    + " \n Para salir del programa, escriba FIN + C\n";
             return menu;
         }
 
@@ -86,12 +86,12 @@ public class ServidorEncriptacion {
                 PrivateKey privateKey = keyPair.getPrivate();
 
                 // Guardamos la clave publica en un fichero y la recuperamos
-                guardarLlave(publicKey, "clavepublica.dat");
-                publicKey = leerLlavePublica("clavepublica.dat");
+                guardarLlave(publicKey, "clavepublica.key");
+                publicKey = leerLlavePublica("clavepublica.key");
 
                 // Guardamos la clave privada en un fichero y la recuperamos
-                guardarLlave(privateKey, "claveprivada.dat");
-                privateKey = leerLlavePrivada("claveprivada.dat");
+                guardarLlave(privateKey, "claveprivada.key");
+                privateKey = leerLlavePrivada("claveprivada.key");
                 return null;
 
             } catch (Exception e) {
@@ -120,7 +120,8 @@ public class ServidorEncriptacion {
                 // Leemos el contenido del fichero y lo guardamos en el array de bytes
                 fis.read(publicKeyBytes);
                 fis.close();
-                // Pasamos el array de bytes a un objeto X509EncodedKeySpec para poder generar la clave
+                // Pasamos el array de bytes a un objeto X509EncodedKeySpec para poder generar
+                // la clave
                 X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(publicKeyBytes);
                 // Creamos un objeto KeyFactory y le indicamos el algoritmo RSA
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
@@ -142,7 +143,8 @@ public class ServidorEncriptacion {
                 // Leemos el contenido del fichero y lo guardamos en el array de bytes
                 fis.read(privateKeyBytes);
                 fis.close();
-                // Pasamos el array de bytes a un objeto PKCS8EncodedKeySpec para poder generar la clave privada
+                // Pasamos el array de bytes a un objeto PKCS8EncodedKeySpec para poder generar
+                // la clave privada
                 PKCS8EncodedKeySpec encriptado = new PKCS8EncodedKeySpec(privateKeyBytes);
                 // Creamos un objeto KeyFactory y le indicamos el algoritmo RSA
                 KeyFactory keyFactory = KeyFactory.getInstance("RSA");
@@ -173,7 +175,7 @@ public class ServidorEncriptacion {
         public String encriptar(String frase) throws RemoteException {
             try {
                 // Recuperamos la clave publica
-                PublicKey publicKey = leerLlavePublica("clavepublica.dat");
+                PublicKey publicKey = leerLlavePublica("clavepublica.key");
                 // Encriptamos el mensaje
                 Cipher cipher = Cipher.getInstance("RSA");
                 cipher.init(Cipher.ENCRYPT_MODE, publicKey);
@@ -181,7 +183,14 @@ public class ServidorEncriptacion {
                 byte[] mensajeEncriptado = cipher.doFinal(frase.getBytes());
                 // Pasamos el mensaje encriptado de bytes a base64 y lo guardamos en un String
                 String mensajeEncriptadoString = Base64.getEncoder().encodeToString(mensajeEncriptado);
-                System.out.println("Mensaje encriptado: \n" + mensajeEncriptadoString);
+
+                // Guarda el mensaje encriptado en un array de 40 caracteres por linea
+                String[] cifrado = mensajeEncriptadoString.split("(?<=\\G.{40})");
+                System.out.println("\033[31mMensaje encriptado: \033[0m \n");
+                // Recorre el array y muestra el mensaje encriptado
+                for (int i = 0; i < cifrado.length; i++) {
+                    System.out.println("\033[32m" + cifrado[i] + "\033[0m");
+                }
                 return mensajeEncriptadoString;
 
             } catch (Exception e) {
@@ -194,7 +203,7 @@ public class ServidorEncriptacion {
         public String desencriptar(String frase) throws RemoteException {
             try {
                 // Recuperamos la clave privada
-                PrivateKey privateKey= leerLlavePrivada("claveprivada.dat");
+                PrivateKey privateKey = leerLlavePrivada("claveprivada.key");
                 // Pasamos el mensaje encriptado de base64 a bytes y lo guardamos en un array
                 byte[] mensajeEncriptado = Base64.getDecoder().decode(frase);
                 // Desencriptamos el mensaje
@@ -205,8 +214,11 @@ public class ServidorEncriptacion {
                 byte[] mensajeDesencriptado = cipher.doFinal(mensajeEncriptado);
                 // Pasamos el mensaje desencriptado de bytes a String
                 String mensajeDesencriptadoString = new String(mensajeDesencriptado);
-                System.out.println("\nMensaje desencriptado: \n" + mensajeDesencriptadoString);
-                System.out.println("\n+++++++++++++++++++++++++++++++ \n");
+                // Mostramos el mensaje desencriptado con color rojo
+                System.out.println("");
+                System.out.println("\033[31mMensaje desencriptado: \033[0m \n" + "\033[32m\n"
+                        + mensajeDesencriptadoString + "\033[0m");
+                System.out.println("\033[35m\n+++++++++++++++++++++++++++++++++++++++++ \n");
                 return mensajeDesencriptadoString;
 
             } catch (Exception e) {
