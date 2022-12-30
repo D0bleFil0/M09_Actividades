@@ -35,12 +35,13 @@ public class ClienteEncriptacion {
                     // Pide al usuario que introduzca una frase
                     System.out.print("\n Introduce una frase: ");
                     frase = sc.nextLine();
-
+                    // Llama al metodo para generar la clave
+                    stub.generarLlaves();
                     // Llamma al metodo remoto de encriptar
                     String resultado = stub.encriptar(frase);
                     // Muestra el resultado
                     System.out.println("");
-                    System.out.println(resultado);
+                    System.out.println("Mensaje encriptado: " + resultado);
                     System.out.println("\n");
 
                     // Pide al usuario que pulse intro para continuar

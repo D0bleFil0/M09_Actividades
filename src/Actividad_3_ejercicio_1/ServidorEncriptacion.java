@@ -11,6 +11,8 @@ import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import javax.crypto.Cipher;
+import javax.print.event.PrintEvent;
+
 import java.rmi.registry.LocateRegistry;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,7 +37,7 @@ public class ServidorEncriptacion {
             // Borra la pantalla
             System.out.print("\033[H\033[2J");
             // Notifica que el servidor está preparado
-            System.out.println(" ***Servidor preparado***");
+            System.out.println(" ***Servidor Encriptación Asimétrica RSA***");
             System.out.println("");
             System.out.println("");
             System.out.println(" Pulse control + c para salir del programa");
@@ -73,6 +75,7 @@ public class ServidorEncriptacion {
             String menu = "***Cliente Encriptación Asimétrica RSA***."
             +"\n Escribe un mensaje para encriptar. "
             +"\n (FIN para salir)";
+            System.out.println(menu);
             return menu;
         }
 
@@ -106,6 +109,7 @@ public class ServidorEncriptacion {
             } catch (Exception e) {
                 mensaje = "Error al generar las llaves";
             }
+            System.out.println(mensaje);
             return mensaje;
         }
 
@@ -127,6 +131,7 @@ public class ServidorEncriptacion {
             } catch (Exception e) {
                 mensaje = "Error al encriptar la frase";
             }
+            System.out.println(mensaje);
             return mensaje;
         }
 
@@ -148,6 +153,7 @@ public class ServidorEncriptacion {
             } catch (Exception e) {
                 mensaje = "Error al desencriptar la frase";
             }
+            System.out.println(mensaje);
             return mensaje;
         }
 
