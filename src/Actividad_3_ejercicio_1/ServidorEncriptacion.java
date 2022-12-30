@@ -2,7 +2,6 @@ package Actividad_3_ejercicio_1;
 
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -16,13 +15,47 @@ import java.rmi.registry.LocateRegistry;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.PrintStream;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public class ServidorEncriptacion {
 
-    // Crea la interfaz remota
+    // Metodo principal
+    public static void main(String[] args) throws RemoteException {
+        // Try catch para controlar las excepciones del servidor
+        try {
+            // Crea el registro en el puerto 1099
+            Registry registro = LocateRegistry.createRegistry(1099);
+            // Instancia el objeto remoto
+            ImplementaPublica obj = new ImplementaPublica();
+            // Crea el stub
+            Encriptar stub = (Encriptar) UnicastRemoteObject.exportObject(obj, 0);
+            // Lo registra en el registro
+            registro.rebind("Encriptar", stub);
+            // Borra la pantalla
+            System.out.print("\033[H\033[2J");
+            // Notifica que el servidor está preparado
+            System.out.println(" ***Servidor preparado***");
+            System.out.println("");
+            System.out.println("");
+            System.out.println(" Pulse control + c para salir del programa");
+            // Muestra lo que va haciendo el cliente
+            System.out.println(" Esperando peticiones del cliente...");
+            System.out.println("");
+
+            // Mostrar registro de lo que va haciendo el cliente
+            System.out.println(" Registro de peticiones realizadas por cliente:");
+            System.out.println("");
+
+            // Si se produce una excepción, la muestra
+        } catch (Exception e) {
+            System.err.println(" Excepción del servidor: " + e.toString());
+            e.printStackTrace();
+        }
+    }
+
+
+    // Crea la interfaz remota que extiende de la interfaz Remote
     public interface Encriptar extends Remote {
         // Crea los métodos remotos
         public String getMenu() throws RemoteException;
@@ -31,69 +64,45 @@ public class ServidorEncriptacion {
         public String generarLlaves() throws RemoteException;
         public String leerLlavePublica() throws RemoteException;
         public String leerLlavePrivada() throws RemoteException;
-        public String guardarLlavePublica() throws RemoteException;
-        public String guardarLlavePrivada() throws RemoteException;
-
      }
 
     // Crea la clase que implementa la interfaz remota
     public static class ImplementaPublica implements Encriptar {
 
-        // Crea los métodos remotos
+        // Meotodo remoto para el menu, devuelve un String con las opciones
         public String getMenu() throws RemoteException {
-            String menu = "1. Encriptar frase" + "\n" + "2. Desencriptar frase" + "\n" + "3. Generar llaves" + "\n"
-                    + "4. Leer llave pública" + "\n" + "5. Leer llave privada" + "\n" + "6. Guardar llave pública" + "\n"
-                    + "7. Guardar llave privada" + "\n" + "8. Salir" + "\n";
+            String menu = "1. Generar llaves\n2. Leer llave pública\n3. Leer llave privada\n4. Encriptar\n5. Desencriptar\n6. Salir";
             return menu;
         }
 
+        // Meotodo remoto para generar las llaves y guardarlas en ficheros
         public String generarLlaves() throws RemoteException {
+            // Crea una variable String para almacenar el mensaje
             String mensaje = "";
             try {
+                // Crea el generador de llaves
                 KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-                keyGen.initialize(1024);
-                KeyPair key = keyGen.generateKeyPair();
-                PublicKey publicKey = key.getPublic();
-                PrivateKey privateKey = key.getPrivate();
+                // Inicializa el generador de llaves
+                keyGen.initialize(2048);
+                // Crea el par de llaves
+                KeyPair pair = keyGen.generateKeyPair();
+                // Crea las llaves
+                PrivateKey priv = pair.getPrivate();
+                PublicKey pub = pair.getPublic();
+                // Guarda las llaves en ficheros
+                File f = new File("private.key");
+                FileOutputStream fos = new FileOutputStream(f);
+                fos.write(priv.getEncoded());
+                fos.close();
+                f = new File("public.key");
+                fos = new FileOutputStream(f);
+                fos.write(pub.getEncoded());
+                fos.close();
+                // Mensaje de que se han generado las llaves
                 mensaje = "Llaves generadas correctamente";
+                // Si se produce una excepción, la muestra
             } catch (Exception e) {
                 mensaje = "Error al generar las llaves";
-            }
-            return mensaje;
-        }
-
-        public String guardarLlavePublica() throws RemoteException {
-            String mensaje = "";
-            try {
-                KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-                keyGen.initialize(1024);
-                KeyPair key = keyGen.generateKeyPair();
-                PublicKey publicKey = key.getPublic();
-                byte[] publicKeyBytes = publicKey.getEncoded();
-                FileOutputStream fos = new FileOutputStream("public.key");
-                fos.write(publicKeyBytes);
-                fos.close();
-                mensaje = "Llave pública guardada correctamente";
-            } catch (Exception e) {
-                mensaje = "Error al guardar la llave pública";
-            }
-            return mensaje;
-        }
-
-        public String guardarLlavePrivada() throws RemoteException {
-            String mensaje = "";
-            try {
-                KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-                keyGen.initialize(1024);
-                KeyPair key = keyGen.generateKeyPair();
-                PrivateKey privateKey = key.getPrivate();
-                byte[] privateKeyBytes = privateKey.getEncoded();
-                FileOutputStream fos = new FileOutputStream("private.key");
-                fos.write(privateKeyBytes);
-                fos.close();
-                mensaje = "Llave privada guardada correctamente";
-            } catch (Exception e) {
-                mensaje = "Error al guardar la llave privada";
             }
             return mensaje;
         }
@@ -176,6 +185,6 @@ public class ServidorEncriptacion {
             }
             return mensaje;
         }
-        
 
-        
+    }
+}
