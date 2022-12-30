@@ -1,16 +1,16 @@
-package Actividad_3_ejercicio_1;
+package Actividad_3_ejercicio_2;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
-public class ClienteEncriptacion {
+public class ClienteCifrado {
     public static void main(String[] args) {
         try {
             // Obtiene el registro en el puerto 1099
             Registry registro = LocateRegistry.getRegistry(1099);
             // Obtiene el stub del objeto remoto
-            ServidorEncriptacion.Encriptar stub = (ServidorEncriptacion.Encriptar) registro.lookup("Encriptar");
+            ServidorCifrado.Encriptar stub = (ServidorCifrado.Encriptar) registro.lookup("Encriptar");
             // Crea el objeto Scanner
             Scanner sc = new Scanner(System.in);
 
@@ -22,7 +22,7 @@ public class ClienteEncriptacion {
                 // Borra la pantalla
                 System.out.print("\033[H\033[2J");
                 // Llama al método remoto de menu
-                System.out.println(stub.mensajeServer());
+                System.out.println(stub.getMenu());
                 // Pide al usuario que introduzca una opción
                 System.out.print("\n Mensaje: ");
                 String opcion = sc.nextLine();

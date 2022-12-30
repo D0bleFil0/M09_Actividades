@@ -1,4 +1,4 @@
-package Actividad_3_ejercicio_1;
+package Actividad_3_ejercicio_2;
 
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -18,7 +18,7 @@ import java.io.FileOutputStream;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public class ServidorEncriptacion {
+public class ServidorCifrado {
 
     // Metodo principal
     public static void main(String[] args) throws RemoteException {
@@ -58,18 +58,19 @@ public class ServidorEncriptacion {
     // Crea la interfaz remota que extiende de la interfaz Remote
     public interface Encriptar extends Remote {
         // Crea los métodos remotos
-        public String mensajeServer() throws RemoteException;
+        public String getMenu() throws RemoteException;
         public String encriptar(String frase) throws RemoteException;
         public String desencriptar(String frase) throws RemoteException;
         public String generarLlaves() throws RemoteException;
-    }
-
+        public String leerLlavePublica() throws RemoteException;
+        public String leerLlavePrivada() throws RemoteException;
+     }
 
     // Crea la clase que implementa la interfaz remota
     public static class ImplementaPublica implements Encriptar {
 
         // Meotodo remoto para el menu, devuelve un String con las opciones
-        public String mensajeServer() throws RemoteException {
+        public String getMenu() throws RemoteException {
             String menu = "Escribe un mensaje para encriptar. Sin escribes FIN se cerrará el programa.";
             return menu;
         }
@@ -105,6 +106,43 @@ public class ServidorEncriptacion {
                 mensaje = "Error al generar las llaves";
             }
             return mensaje;
+        }
+
+        public String leerLlavePublica() throws RemoteException {
+            String mensaje = "";
+            try {
+                File filePublicKey = new File("public.key");
+                FileInputStream fis = new FileInputStream("public.key");
+                byte[] encodedPublicKey = new byte[(int) filePublicKey.length()];
+                fis.read(encodedPublicKey);
+                fis.close();
+                KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+                KeySpec publicKeySpec = new X509EncodedKeySpec(encodedPublicKey);
+                PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
+                mensaje = "Llave pública leída correctamente";
+            } catch (Exception e) {
+                mensaje = "Error al leer la llave pública";
+            }
+            return mensaje;
+        }
+
+        public String leerLlavePrivada() throws RemoteException {
+            String mensaje = "";
+            try {
+                File filePrivateKey = new File("private.key");
+                FileInputStream fis = new FileInputStream("private.key");
+                byte[] encodedPrivateKey = new byte[(int) filePrivateKey.length()];
+                fis.read(encodedPrivateKey);
+                fis.close();
+                KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+                KeySpec privateKeySpec = new PKCS8EncodedKeySpec(encodedPrivateKey);
+                PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+                mensaje = "Llave privada leída correctamente";
+            } catch (Exception e) {
+                mensaje = "Error al leer la llave privada";
+            }
+            return mensaje;
+
         }
 
         public String encriptar(String frase) throws RemoteException {
