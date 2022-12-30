@@ -21,9 +21,6 @@ public class ClienteEncriptacion {
             String fraseEncriptada;
             // Crea la variable para almacenar la frase desencriptada
             String fraseDesencriptada;
-            // Crea la variable para almacenar la frase encriptada
-            String fraseEncriptada2;
-            // Crea la variable para almacenar la frase desencriptada
 
 
             // Borra la pantalla
@@ -38,51 +35,36 @@ public class ClienteEncriptacion {
             System.out.print(" Introduzca la frase: ");
             // Almacena la frase
             frase = sc.next();
-            // Si la opción es 1   
+            // Si la opción es 1, genera las claves
             if (opcion == 1) {
-                // Encripta la frase
-                fraseEncriptada = stub.encriptar(frase);
-                // Muestra la frase encriptada
-                System.out.println(" Frase encriptada: " + fraseEncriptada);
-                // Desencripta la frase
-                fraseDesencriptada = stub.desencriptar(fraseEncriptada);
-                // Muestra la frase desencriptada
-                System.out.println(" Frase desencriptada: " + fraseDesencriptada);
-                // Si la opción es 2
+                // Llama al método remoto de generarClaves
+                stub.generarLlaves();
+                // Muestra el mensaje de claves generadas
+                System.out.println(" Claves generadas");
+            // Si la opción es 2, encripta la frase
             } else if (opcion == 2) {
-                // Encripta la frase
-                fraseEncriptada2 = stub.encriptar(frase);
-                // Muestra la frase encriptada
-                System.out.println(" Frase encriptada: " + fraseEncriptada2);
-                // Desencripta la frase
-                fraseDesencriptada = stub.desencriptar(fraseEncriptada2);
-                // Muestra la frase desencriptada
-                System.out.println(" Frase desencriptada: " + fraseDesencriptada);
-            }
-            // Si la opción es 3
-            else if (opcion == 3) {
-                // Encripta la frase
+                // Llama al método remoto de encriptar
                 fraseEncriptada = stub.encriptar(frase);
                 // Muestra la frase encriptada
                 System.out.println(" Frase encriptada: " + fraseEncriptada);
-                // Desencripta la frase
-                fraseDesencriptada = stub.desencriptar(fraseEncriptada);
+            // Si la opción es 3, desencripta la frase
+            } else if (opcion == 3) {
+                // Llama al método remoto de desencriptar
+                fraseDesencriptada = stub.desencriptar(frase);
                 // Muestra la frase desencriptada
                 System.out.println(" Frase desencriptada: " + fraseDesencriptada);
-                // Encripta la frase
-                fraseEncriptada2 = stub.encriptar(frase);
-                // Muestra la frase encriptada
-                System.out.println(" Frase encriptada: " + fraseEncriptada2);
-                // Desencripta la frase
-                fraseDesencriptada = stub.desencriptar(fraseEncriptada2);
-                // Muestra la frase desencriptada
-                System.out.println(" Frase desencriptada: " + fraseDesencriptada);
+            // Si la opción es 4, sale del programa
+            } else if (opcion == 4) {
+                System.out.println(" Saliendo del programa...");
+            // Si la opción no es correcta, muestra un mensaje de error
+            } else {
+                System.out.println(" Opción incorrecta");
             }
         } catch (Exception e) {
-            System.err.println("Excepción del cliente: " + e.toString());
+            System.err.println(" Error: " + e.toString());
             e.printStackTrace();
         }
     }
 }
 
-
+ 
