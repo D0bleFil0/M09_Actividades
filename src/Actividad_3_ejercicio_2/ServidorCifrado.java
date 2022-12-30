@@ -66,14 +66,19 @@ public class ServidorCifrado{
     // Crea la clase que implementa la interfaz remota
     public static class ImplementaPublica implements Encriptar {
 
-        // Meotodo remoto para el menu, devuelve un String con las opciones
+        // Metodo remoto para el menu, devuelve un String con las opciones
         public String mensajeMenu() throws RemoteException {
             String menu = " ***Cliente Encriptación Asimétrica RSA***\n"
-                    + " \n Para salir del programa, escriba FIN + C\n";
+                    + " \n Elija una opción:\n"
+                    + " \n 1. Encriptar"
+                    + " \n 2. Desencriptar"
+                    + " \n 3. Generar llaves nuevas"
+                    + " \n 4. Descargar llaves"
+                    + " \n 5. Salir";
             return menu;
         }
 
-        // Meotodo remoto para generar las llaves y guardarlas en ficheros
+        // Metodo remoto para generar las llaves y guardarlas en ficheros
         public String generarLlaves() throws RemoteException {
             try {
                 // Generamos el par de claves.
@@ -97,6 +102,7 @@ public class ServidorCifrado{
             }
         }
 
+        // Metodo remoto para guardar las llaves en ficheros
         public void guardarLlave(PublicKey publicKey, String string) {
             try {
                 byte[] publicKeyBytes = publicKey.getEncoded();
@@ -108,6 +114,7 @@ public class ServidorCifrado{
             }
         }
 
+        // Metodo remoto para leer clave publica
         public PublicKey leerLlavePublica(String string) {
             try {
                 // Leemos la clave publica del fichero
@@ -130,7 +137,7 @@ public class ServidorCifrado{
             }
             return null;
         }
-
+        // Metodo remoto para leer clave privada
         public PrivateKey leerLlavePrivada(String string) {
             try {
                 // Leemos la clave privada del fichero
@@ -153,7 +160,7 @@ public class ServidorCifrado{
             }
             return null;
         }
-
+        // Metodo remoto para guardar la clave privada en un fichero
         public void guardarLlave(PrivateKey privateKey, String string) {
             try {
                 // Guardamos la clave privada en un array de bytes
