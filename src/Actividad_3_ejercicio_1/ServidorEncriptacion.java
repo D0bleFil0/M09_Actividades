@@ -58,11 +58,8 @@ public class ServidorEncriptacion {
     public interface Encriptar extends Remote {
         // Crea los métodos remotos
         public String mensajeMenu() throws RemoteException;
-
         public String encriptar(String frase) throws RemoteException;
-
         public String desencriptar(String frase) throws RemoteException;
-
         public String generarLlaves() throws RemoteException;
     }
 

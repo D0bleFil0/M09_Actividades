@@ -1,9 +1,0 @@
-hola
-perro
-gato
-jamon
-amigo
-raton
-casa
-coche
-moto
