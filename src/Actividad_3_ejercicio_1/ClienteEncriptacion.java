@@ -22,7 +22,7 @@ public class ClienteEncriptacion {
                 // Borra la pantalla
                 System.out.print("\033[H\033[2J");
                 // Llama al método remoto de menu
-                System.out.println(stub.mensajeServer());
+                System.out.println(stub.mensajeMenu());
                 // Pide al usuario que introduzca una opción
                 //System.out.print("\n Mensaje: ");
                 //String opcion = sc.nextLine();
