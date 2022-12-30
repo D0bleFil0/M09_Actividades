@@ -23,31 +23,27 @@ public class ClienteEncriptacion {
                 System.out.print("\033[H\033[2J");
                 // Llama al método remoto de menu
                 System.out.println(stub.mensajeMenu());
-                // Pide al usuario que introduzca una opción
-                //System.out.print("\n Mensaje: ");
-                //String opcion = sc.nextLine();
-                // Si la opción es F, sale del programa
+                // Pide al usuario que introduzca una frase
+                System.out.print("\nIntroduce una frase: ");
+                frase = sc.nextLine();
                 if (frase.equalsIgnoreCase("FIN")) {
-                    System.out.println(" Saliendo del programa...");
+                    System.out.println(" Saliendo del programa...\n");
                     salir = true;
                 } else {
-                    // Pide al usuario que introduzca una frase
-                    System.out.print("\n Introduce una frase: ");
-                    frase = sc.nextLine();
+
                     // Llama al metodo para generar la clave
                     stub.generarLlaves();
                     // Llamma al metodo remoto de encriptar
                     String cifrar = stub.encriptar(frase);
                     // Muestra el resultado
                     System.out.println("");
-                    System.out.println("Mensaje encriptado: " + cifrar);
-                    System.out.println("\n");
+                    System.out.println("Mensaje encriptado: \n" + cifrar);
                     System.out.println("");
                     String descifrar = stub.desencriptar(cifrar);
-                    System.out.println("Mensaje desencriptado: " + descifrar);
-                    System.out.println("\n");
+                    System.out.println("Mensaje desencriptado: \n" + descifrar);
+                    System.out.println("");
                     // Pide al usuario que pulse intro para continuar
-                    System.out.println(" Pulsa intro para continuar...");
+                    System.out.println("\nPulsa intro para continuar...");
                     sc.nextLine();
                 }
             }
@@ -60,4 +56,3 @@ public class ClienteEncriptacion {
         }
     }
 }
-

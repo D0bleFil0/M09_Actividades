@@ -43,7 +43,7 @@ public class ServidorEncriptacion {
                     + " \n Servidor preparado y esperando peticiones...\n"
                     + " \n Para salir del programa, pulse Ctrl + C\n"
                     + " \n -----------------------------------------"
-                    + " \n Registro de solicitudes:"
+                    + " \n |        Registro de solicitudes        |"
                     + " \n -----------------------------------------\n");
 
             // Si se produce una excepción, la muestra
@@ -70,10 +70,9 @@ public class ServidorEncriptacion {
 
         // Meotodo remoto para el menu, devuelve un String con las opciones
         public String mensajeMenu() throws RemoteException {
-            String menu = "***Cliente Encriptación Asimétrica RSA***."
-                    + "\n Escribe un mensaje para encriptar. "
-                    + "\n (FIN para salir)";
-            System.out.println(menu);
+            String menu = " ***Servidor Encriptación Asimétrica RSA***\n"
+            + " \n Servidor preparado y esperando peticiones...\n"
+            + " \n Para salir del programa, pulse Ctrl + C\n";
             return menu;
         }
 
@@ -182,7 +181,7 @@ public class ServidorEncriptacion {
                 byte[] mensajeEncriptado = cipher.doFinal(frase.getBytes());
                 // Pasamos el mensaje encriptado de bytes a base64 y lo guardamos en un String
                 String mensajeEncriptadoString = Base64.getEncoder().encodeToString(mensajeEncriptado);
-                System.out.println(" Mensaje encriptado: " + mensajeEncriptadoString);
+                System.out.println("Mensaje encriptado: \n" + mensajeEncriptadoString);
                 return mensajeEncriptadoString;
 
             } catch (Exception e) {
@@ -206,7 +205,8 @@ public class ServidorEncriptacion {
                 byte[] mensajeDesencriptado = cipher.doFinal(mensajeEncriptado);
                 // Pasamos el mensaje desencriptado de bytes a String
                 String mensajeDesencriptadoString = new String(mensajeDesencriptado);
-                System.out.println(" Mensaje desencriptado: " + mensajeDesencriptadoString);
+                System.out.println("\nMensaje desencriptado: \n" + mensajeDesencriptadoString);
+                System.out.println("\n+++++++++++++++++++++++++++++++ \n");
                 return mensajeDesencriptadoString;
 
             } catch (Exception e) {
