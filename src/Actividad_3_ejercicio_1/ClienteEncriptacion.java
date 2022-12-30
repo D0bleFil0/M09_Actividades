@@ -24,10 +24,10 @@ public class ClienteEncriptacion {
                 // Llama al método remoto de menu
                 System.out.println(stub.mensajeServer());
                 // Pide al usuario que introduzca una opción
-                System.out.print("\n Mensaje: ");
-                String opcion = sc.nextLine();
+                //System.out.print("\n Mensaje: ");
+                //String opcion = sc.nextLine();
                 // Si la opción es F, sale del programa
-                if (opcion.equalsIgnoreCase("FIN")) {
+                if (frase.equalsIgnoreCase("FIN")) {
                     System.out.println(" Saliendo del programa...");
                     
                     salir = true;
