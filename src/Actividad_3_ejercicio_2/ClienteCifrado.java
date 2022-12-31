@@ -58,19 +58,19 @@ public class ClienteCifrado {
                         case 3:
                             // Borra la pantalla
                             System.out.print("\033[H\033[2J");
-                            // Llama al método remoto generarLlaves
-                            System.out.println(stub.generarLlaves());
+                            // Llama al método remoto generarclaves
+                            System.out.println(stub.generarclaves());
                             break;
 
                         case 4:
                             // Borra la pantalla
                             System.out.print("\033[H\033[2J");
-                            // Llama al método remoto mostrarLlaves, que devuelve un array
-                            String[] llaves = stub.mostrarLlaves();
-                            // Muestra las llaves
-                            System.out.println(llaves[0]);
+                            // Llama al método remoto mostrarclaves, que devuelve un array
+                            String[] claves = stub.mostrarclaves();
+                            // Muestra las claves
+                            System.out.println(claves[0]);
                             System.out.println("");
-                            System.out.println(llaves[1]);
+                            System.out.println(claves[1]);
                             break;
 
                         case 5:

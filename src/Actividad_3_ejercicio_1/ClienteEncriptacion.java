@@ -32,7 +32,7 @@ public class ClienteEncriptacion {
                 } else {
 
                     // Llama al metodo para generar la clave
-                    stub.generarLlaves();
+                    stub.generarclaves();
                     // Llamma al metodo remoto de encriptar
                     String cifrar = stub.encriptar(frase);
                     // Muestra el resultado

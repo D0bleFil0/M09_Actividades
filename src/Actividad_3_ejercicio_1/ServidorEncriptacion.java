@@ -63,7 +63,7 @@ public class ServidorEncriptacion {
 
         public String desencriptar(String frase) throws RemoteException;
 
-        public String generarLlaves() throws RemoteException;
+        public String generarclaves() throws RemoteException;
     }
 
     // Crea la clase que implementa la interfaz remota
@@ -76,8 +76,8 @@ public class ServidorEncriptacion {
             return menu;
         }
 
-        // Metodo remoto para generar las llaves y guardarlas en ficheros
-        public String generarLlaves() throws RemoteException {
+        // Metodo remoto para generar las claves y guardarlas en ficheros
+        public String generarclaves() throws RemoteException {
             try {
                 // Generamos el par de claves.
                 KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -95,12 +95,12 @@ public class ServidorEncriptacion {
                 return null;
 
             } catch (Exception e) {
-                System.out.println("Error al generar las llaves");
+                System.out.println("Error al generar las claves");
                 return null;
             }
         }
 
-        // Metodo remoto para guardar las llaves en ficheros
+        // Metodo remoto para guardar las claves en ficheros
         public void guardarLlave(PublicKey publicKey, String string) {
             try {
                 byte[] publicKeyBytes = publicKey.getEncoded();
