@@ -188,7 +188,7 @@ public class ServidorCifrado {
         // Metodo remoto para encriptar el mensaje guardado en el metodo anterior
         public String encriptar(String frase) throws RemoteException {
             String error = "\033[31m¡Error al encriptar el mensaje!\033[0m"
-            + "\033[31m¡Genera las claves de nuevo!\033[0m";
+            + "\033[31m\n¡Genera las claves de nuevo!\033[0m";
             try {
                 // Recuperamos la clave publica
                 PublicKey publicKey = leerLlavePublica("clavepublica.key");
@@ -221,7 +221,7 @@ public class ServidorCifrado {
         // Metodo remoto para desencriptar el mensaje guardado en base64
         public String desencriptar(String frase) throws RemoteException {
             String error = "\033[31m¡Error al desencriptar el mensaje!\033[0m"
-            + "\033[31m¡Genera las claves de nuevo!\033[0m";
+            + "\033[31m\n¡Genera las claves de nuevo!\033[0m";
             try {
                 // Recuperamos la clave privada
                 PrivateKey privateKey = leerLlavePrivada("claveprivada.key");
@@ -272,11 +272,17 @@ public class ServidorCifrado {
                 String privada = "\033[31mClave privada: \033[0m \n" + "\033[32m" + privateKey + "\033[0m";
                 System.out.println("\033[35m\n+++++++++++++++++++++++++++++++++++++++++ \n");
                 String[] claves = { prublica, privada };
-                return claves;
+                // Si son null devuelve un array de dos posiciones con el error
+                if (publicKey == null || privateKey == null) {
+                    String[] errorclaves = { error, error };
+                    return errorclaves;
+                } else {
+                    return claves;
+                }
             } catch (Exception e) {
                 System.out.println(error);
-                String[] claves = { error };
-                return claves;
+                String[] errorclaves = { error, error };
+                return errorclaves;
             }
         }
     }
