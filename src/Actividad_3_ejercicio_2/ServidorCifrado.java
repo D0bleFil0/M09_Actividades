@@ -84,6 +84,7 @@ public class ServidorCifrado{
 
         // Metodo remoto para generar las llaves y guardarlas en ficheros
         public String generarLlaves() throws RemoteException {
+            String mensaje = "Llaves generadas correctamente";
             try {
                 // Generamos el par de claves.
                 KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -98,11 +99,12 @@ public class ServidorCifrado{
                 // Guardamos la clave privada en un fichero y la recuperamos
                 guardarLlave(privateKey, "claveprivada.key");
                 privateKey = leerLlavePrivada("claveprivada.key");
-                return null;
+                return mensaje;
 
             } catch (Exception e) {
-                System.out.println("Error al generar las llaves");
-                return null;
+                mensaje = "Error al generar las llaves";
+                System.out.println(mensaje);
+                return mensaje;
             }
         }
 

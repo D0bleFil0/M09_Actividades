@@ -40,7 +40,7 @@ public class ClienteCifrado {
                         // Borra la pantalla
                         System.out.print("\033[H\033[2J");
                         // Llama al método remoto de encriptar
-                        System.out.println("Frase encriptada: " + stub.encriptar(frase));
+                        System.out.println("Frase encriptada: " + "\033[32m\n" + stub.encriptar(frase));
                         break;
 
                     case 2:
@@ -51,7 +51,7 @@ public class ClienteCifrado {
                         // Borra la pantalla
                         System.out.print("\033[H\033[2J");
                         // Llama al método remoto de desencriptar
-                        System.out.println("Frase desencriptada: " + stub.desencriptar(frase));
+                        System.out.println("Frase desencriptada: " + "\033[32m\n" +  stub.desencriptar(frase));
                         break;
 
                     case 3:
