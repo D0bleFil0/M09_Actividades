@@ -61,6 +61,10 @@ public class ServidorCifrado{
         public String encriptar(String frase) throws RemoteException;
         public String desencriptar(String frase) throws RemoteException;
         public String generarLlaves() throws RemoteException;
+        public String[] mostrarLlaves() throws RemoteException;
+        
+        
+
     }
 
     // Crea la clase que implementa la interfaz remota
@@ -73,7 +77,7 @@ public class ServidorCifrado{
                     + " \n 1. Encriptar"
                     + " \n 2. Desencriptar"
                     + " \n 3. Generar llaves nuevas"
-                    + " \n 4. Descargar llaves"
+                    + " \n 4. Mostrar llaves"
                     + " \n 5. Salir";
             return menu;
         }
@@ -230,6 +234,26 @@ public class ServidorCifrado{
                 return null;
             }
         }
-    }
 
+        // Metodo remoto para mostrar las llaves en cliente
+        public String[] mostrarLlaves() throws RemoteException {
+            try {
+                // Recuperamos la clave publica
+                PublicKey publicKey = leerLlavePublica("clavepublica.key");
+                // Recuperamos la clave privada
+                PrivateKey privateKey = leerLlavePrivada("claveprivada.key");
+                // Mostramos las claves con color rojo
+                System.out.println("\033[31mClave publica: \033[0m \n" + "\033[32m" + publicKey + "\033[0m");
+                String prublica = "\033[31mClave publica: \033[0m \n" + "\033[32m" + publicKey + "\033[0m";
+                System.out.println("\033[31mClave privada: \033[0m \n" + "\033[32m" + privateKey + "\033[0m");
+                String privada = "\033[31mClave privada: \033[0m \n" + "\033[32m" + privateKey + "\033[0m";
+
+                String[] llaves = { prublica, privada };
+                return llaves;
+            } catch (Exception e) {
+                System.out.println("Error al mostrar las llaves");
+                return null;
+            }
+        }
+    }
 }

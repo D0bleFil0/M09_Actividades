@@ -15,50 +15,87 @@ public class ClienteCifrado {
             Scanner sc = new Scanner(System.in);
             // Variable para almacenar la frase
             String frase = "";
-            // Variable para salir del programa en bucle while
-            boolean salir = false;
-            // Bucle while para repetir el programa hasta que el usuario introduzca la FIN
-            while (!salir) {
+
+            // Bucle infinito
+            while (true) {
                 // Borra la pantalla
                 System.out.print("\033[H\033[2J");
                 // Llama al método remoto de menu
                 System.out.println(stub.mensajeMenu());
                 // Pide al usuario que introduzca una frase
-                System.out.print("\nIntroduce una frase: ");
-                frase = sc.nextLine();
-                if (frase.equalsIgnoreCase("FIN")) {
-                    System.out.println("\n\033[35mSaliendo del programa...\n");
-                    salir = true;
-                } else {
+                System.out.print("\nOpción: ");
+                // Almacena la opción elegida por el usuario
+                int opcion = sc.nextInt();
+                // Borra la pantalla
+                System.out.print("\033[H\033[2J");
 
-                    // Llama al metodo para generar la clave
-                    stub.generarLlaves();
-                    // Llamma al metodo remoto de encriptar
-                    String cifrar = stub.encriptar(frase);
-                    // Muestra el resultado
-                    System.out.println("");
-                    // Guarda el mensaje encriptado en un array de 40 caracteres por linea
-                    String[] cifrado = cifrar.split("(?<=\\G.{40})");
-                    System.out.println("\033[31mMensaje encriptado: \033[0m \n");
-                    // Recorre el array y muestra el mensaje encriptado en color verde
-                    for (int i = 0; i < cifrado.length; i++) {
-                        System.out.println("\033[32m" + cifrado[i] + "\033[0m");
-                    }
-                    System.out.println("");
-                    String descifrar = stub.desencriptar(cifrar);
-                    System.out.println("\033[31mMensaje desencriptado: \033[0m \n" + "\033[32m\n" + descifrar +"\033[0m");
-                    System.out.println("");
-                    // Pide al usuario que pulse intro para continuar
-                    System.out.println("\nPulsa intro para continuar...");
-                    sc.nextLine();
+                // Estructura switch para elegir la opción
+
+                switch (opcion) {
+                    case 1:
+                        // Pide al usuario que introduzca una frase
+                        System.out.print("Introduce una frase: ");
+                        // Almacena la frase introducida por el usuario
+                        frase = sc.next();
+                        // Borra la pantalla
+                        System.out.print("\033[H\033[2J");
+                        // Llama al método remoto de encriptar
+                        System.out.println("Frase encriptada: " + stub.encriptar(frase));
+                        break;
+
+                    case 2:
+                        // Pide al usuario que introduzca una frase
+                        System.out.print("Introduce una frase: ");
+                        // Almacena la frase introducida por el usuario
+                        frase = sc.next();
+                        // Borra la pantalla
+                        System.out.print("\033[H\033[2J");
+                        // Llama al método remoto de desencriptar
+                        System.out.println("Frase desencriptada: " + stub.desencriptar(frase));
+                        break;
+
+                    case 3:
+                        // Borra la pantalla
+                        System.out.print("\033[H\033[2J");
+                        // Llama al método remoto generarLlaves
+                        System.out.println(stub.generarLlaves());
+                        break;
+
+                    case 4:
+                        // Borra la pantalla
+                        System.out.print("\033[H\033[2J");
+                        // Llama al método remoto mostrarLlaves, que devuelve un array
+                        String[] llaves = stub.mostrarLlaves();
+                        // Muestra las llaves
+                        System.out.println(llaves[0]);
+                        System.out.println(llaves[1]);
+                        break;
+
+                    case 5:
+                        // Borra la pantalla
+                        System.out.print("\033[H\033[2J");
+                        // Mensaje fin del programa
+                        System.out.println("Fin del programa");
+                        // Finaliza el programa
+                        System.exit(0);
+                        break;
+
+                    default:
+                        // Borra la pantalla
+                        System.out.print("\033[H\033[2J");
+                        // Mensaje de error
+                        System.out.println("Error, opción incorrecta");
+                        break;
+                    // Vuelve al main
+
                 }
+                // Pausa el programa
+                System.out.println("\nPulse una tecla para continuar...");
+                System.in.read();
             }
-
-            // Cierra el objeto Scanner
-            sc.close();
-
         } catch (Exception e) {
             System.err.println("Excepción del cliente: " + e.toString());
+            e.printStackTrace();
         }
     }
 }
