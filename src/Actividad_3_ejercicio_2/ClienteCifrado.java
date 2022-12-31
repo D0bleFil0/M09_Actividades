@@ -33,25 +33,25 @@ public class ClienteCifrado {
 
                 switch (opcion) {
                     case 1:
-                        // Pide al usuario que introduzca una frase
-                        System.out.print("Introduce una frase: ");
+                        // Pide al usuario que introduzca una frase en color azul
+                        System.out.print("\033[34mIntroduce el mensaje: \033[0m");
                         // Almacena la frase introducida por el usuario
                         frase = sc.next();
                         // Borra la pantalla
                         System.out.print("\033[H\033[2J");
                         // Llama al método remoto de encriptar
-                        System.out.println("Frase encriptada: " + "\033[32m\n" + stub.encriptar(frase));
+                        System.out.println("Frase encriptada: \n" + "\033[32m\n" +  stub.encriptar(frase) + "\033[0m");
                         break;
 
                     case 2:
-                        // Pide al usuario que introduzca una frase
-                        System.out.print("Introduce una frase: ");
+                        // Pide al usuario que introduzca una frase en color azul
+                        System.out.print("\033[34mIntroduce el mensaje: \033[0m");
                         // Almacena la frase introducida por el usuario
                         frase = sc.next();
                         // Borra la pantalla
                         System.out.print("\033[H\033[2J");
                         // Llama al método remoto de desencriptar
-                        System.out.println("Frase desencriptada: " + "\033[32m\n" +  stub.desencriptar(frase));
+                        System.out.println("Frase desencriptada: \n" + "\033[32m\n" +  stub.desencriptar(frase) + "\033[0m");
                         break;
 
                     case 3:
@@ -68,14 +68,15 @@ public class ClienteCifrado {
                         String[] llaves = stub.mostrarLlaves();
                         // Muestra las llaves
                         System.out.println(llaves[0]);
+                        System.out.println(""); 
                         System.out.println(llaves[1]);
                         break;
 
                     case 5:
                         // Borra la pantalla
                         System.out.print("\033[H\033[2J");
-                        // Mensaje fin del programa
-                        System.out.println("Fin del programa");
+                        // Mensaje fin del programa en rosa
+                        System.out.println("\033[35m\nFin del programa\033[0m\n");
                         // Finaliza el programa
                         System.exit(0);
                         break;
@@ -83,8 +84,8 @@ public class ClienteCifrado {
                     default:
                         // Borra la pantalla
                         System.out.print("\033[H\033[2J");
-                        // Mensaje de error
-                        System.out.println("Error, opción incorrecta");
+                        // Mensaje de error en color rojo
+                        System.out.println("\033[31mOpción incorrecta\033[0m");
                         break;
                     // Vuelve al main
 
