@@ -91,12 +91,11 @@ public class ClienteCifrado {
 
                 }
                 // Pausa el programa
-                System.out.println("\nPulse una tecla para continuar...");
+                System.out.println("\033[35m\nPulse una tecla para continuar...\033[30");
                 System.in.read();
             }
         } catch (Exception e) {
-            System.err.println("Excepción del cliente: " + e.toString());
-            e.printStackTrace();
+            main(args);
         }
     }
 }

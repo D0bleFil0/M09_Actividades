@@ -21,7 +21,7 @@ import javax.crypto.Cipher;
 // Importa las librerías necesarias para Base64
 import java.util.Base64;
 
-public class ServidorCifrado{
+public class ServidorCifrado {
 
     // Metodo principal
     public static void main(String[] args) throws RemoteException {
@@ -42,7 +42,7 @@ public class ServidorCifrado{
             System.out.println(" ***Servidor Encriptación Asimétrica RSA***\n"
                     + " \n Servidor preparado y esperando peticiones...\n"
                     + " \n Para salir del programa, pulse Ctrl + C\n"
-                    + "\033[31m"
+                    + "\033[35m"
                     + " \n -----------------------------------------"
                     + " \n |        Registro de solicitudes        |"
                     + " \n -----------------------------------------\n");
@@ -58,12 +58,14 @@ public class ServidorCifrado{
     public interface Encriptar extends Remote {
         // Crea los métodos remotos
         public String mensajeMenu() throws RemoteException;
+
         public String encriptar(String frase) throws RemoteException;
+
         public String desencriptar(String frase) throws RemoteException;
+
         public String generarLlaves() throws RemoteException;
+
         public String[] mostrarLlaves() throws RemoteException;
-        
-        
 
     }
 
@@ -102,7 +104,7 @@ public class ServidorCifrado{
                 return mensaje;
 
             } catch (Exception e) {
-                mensaje = "Error al generar las llaves";
+                mensaje = "\033[31\nError al generar las llaves\033[30";
                 System.out.println(mensaje);
                 return mensaje;
             }
@@ -143,6 +145,7 @@ public class ServidorCifrado{
             }
             return null;
         }
+
         // Metodo remoto para leer clave privada
         public PrivateKey leerLlavePrivada(String string) {
             try {
@@ -166,6 +169,7 @@ public class ServidorCifrado{
             }
             return null;
         }
+
         // Metodo remoto para guardar la clave privada en un fichero
         public void guardarLlave(PrivateKey privateKey, String string) {
             try {
@@ -193,7 +197,9 @@ public class ServidorCifrado{
                 byte[] mensajeEncriptado = cipher.doFinal(frase.getBytes());
                 // Pasamos el mensaje encriptado de bytes a base64 y lo guardamos en un String
                 String mensajeEncriptadoString = Base64.getEncoder().encodeToString(mensajeEncriptado);
-
+                //Muestra el mensaje original
+                System.out.println("\033[31mMensaje original: \033[0m \n");
+                System.out.println("\033[32m" + frase + "\033[0m\n");
                 // Guarda el mensaje encriptado en un array de 40 caracteres por linea
                 String[] cifrado = mensajeEncriptadoString.split("(?<=\\G.{40})");
                 System.out.println("\033[31mMensaje encriptado: \033[0m \n");
@@ -201,10 +207,11 @@ public class ServidorCifrado{
                 for (int i = 0; i < cifrado.length; i++) {
                     System.out.println("\033[32m" + cifrado[i] + "\033[0m");
                 }
+                System.out.println("\033[35m\n+++++++++++++++++++++++++++++++++++++++++ \n");
                 return mensajeEncriptadoString;
 
             } catch (Exception e) {
-                System.out.println("Error al encriptar el mensaje");
+                System.out.println("\033[31mError al encriptar el mensaje\033[30");
                 return null;
             }
         }
@@ -224,15 +231,22 @@ public class ServidorCifrado{
                 byte[] mensajeDesencriptado = cipher.doFinal(mensajeEncriptado);
                 // Pasamos el mensaje desencriptado de bytes a String
                 String mensajeDesencriptadoString = new String(mensajeDesencriptado);
+                // Mostramos frase del cliente en rojo en un array de 40 caracteres por linea
+                String[] cifrado = frase.split("(?<=\\G.{40})");
+                System.out.println("\033[31mMensaje original: \033[0m \n");
+                for (int i = 0; i < cifrado.length; i++) {
+                    System.out.println("\033[32m" + cifrado[i] + "\033[0m");
+                }
                 // Mostramos el mensaje desencriptado con color rojo
                 System.out.println("");
                 System.out.println("\033[31mMensaje desencriptado: \033[0m \n" + "\033[32m\n"
                         + mensajeDesencriptadoString + "\033[0m");
+                
                 System.out.println("\033[35m\n+++++++++++++++++++++++++++++++++++++++++ \n");
                 return mensajeDesencriptadoString;
 
             } catch (Exception e) {
-                System.out.println("Error al desencriptar el mensaje");
+                System.out.println("\033[31mError al desencriptar el mensaje\033[30");
                 return null;
             }
         }
@@ -247,13 +261,15 @@ public class ServidorCifrado{
                 // Mostramos las claves con color rojo
                 System.out.println("\033[31mClave publica: \033[0m \n" + "\033[32m" + publicKey + "\033[0m");
                 String prublica = "\033[31mClave publica: \033[0m \n" + "\033[32m" + publicKey + "\033[0m";
+                System.out.println("");
                 System.out.println("\033[31mClave privada: \033[0m \n" + "\033[32m" + privateKey + "\033[0m");
                 String privada = "\033[31mClave privada: \033[0m \n" + "\033[32m" + privateKey + "\033[0m";
-
+                System.out.println("\033[35m\n+++++++++++++++++++++++++++++++++++++++++ \n");
                 String[] llaves = { prublica, privada };
                 return llaves;
             } catch (Exception e) {
-                System.out.println("Error al mostrar las llaves");
+                System.out.println("\033[35m\n+++++++++++++++++++++++++++++++++++++++++ \n");
+                System.out.println("\033[31mError al mostrar las llaves\033[30");
                 return null;
             }
         }
