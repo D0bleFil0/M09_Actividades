@@ -226,7 +226,7 @@ public class ServidorEncriptacion {
                 return mensajeDesencriptadoString;
 
             } catch (Exception e) {
-                System.out.println("Error al desencriptar el mensaje");
+                System.out.println("¡Error al desencriptar el mensaje!");
                 return null;
             }
         }

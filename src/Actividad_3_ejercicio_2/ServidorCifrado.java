@@ -101,6 +101,7 @@ public class ServidorCifrado {
                 // Guardamos la clave privada en un fichero y la recuperamos
                 guardarLlave(privateKey, "claveprivada.key");
                 privateKey = leerLlavePrivada("claveprivada.key");
+                System.out.println(mensaje);
                 return mensaje;
 
             } catch (Exception e) {

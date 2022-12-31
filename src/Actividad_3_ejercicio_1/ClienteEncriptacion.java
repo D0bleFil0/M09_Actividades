@@ -23,8 +23,8 @@ public class ClienteEncriptacion {
                 System.out.print("\033[H\033[2J");
                 // Llama al método remoto de menu
                 System.out.println(stub.mensajeMenu());
-                // Pide al usuario que introduzca una frase
-                System.out.print("\nIntroduce una frase: ");
+                // Pide al usuario que introduzca un mensaje
+                System.out.print("\nIntroduce un mensaje: ");
                 frase = sc.nextLine();
                 if (frase.equalsIgnoreCase("FIN")) {
                     System.out.println("\n\033[35mSaliendo del programa...\n");
