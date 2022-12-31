@@ -104,7 +104,7 @@ public class ServidorCifrado {
                 return mensaje;
 
             } catch (Exception e) {
-                mensaje = "\033[31\nError al generar las llaves\033[30";
+                mensaje = "\033[31\nError al generar las llaves\033[0m";
                 System.out.println(mensaje);
                 return mensaje;
             }
@@ -211,7 +211,7 @@ public class ServidorCifrado {
                 return mensajeEncriptadoString;
 
             } catch (Exception e) {
-                System.out.println("\033[31mError al encriptar el mensaje\033[30");
+                System.out.println("\033[31mError al encriptar el mensaje\033[0m");
                 return null;
             }
         }
@@ -246,7 +246,7 @@ public class ServidorCifrado {
                 return mensajeDesencriptadoString;
 
             } catch (Exception e) {
-                System.out.println("\033[31mError al desencriptar el mensaje\033[30");
+                System.out.println("\033[31mError al desencriptar el mensaje\033[0m");
                 return null;
             }
         }
@@ -269,7 +269,7 @@ public class ServidorCifrado {
                 return llaves;
             } catch (Exception e) {
                 System.out.println("\033[35m\n+++++++++++++++++++++++++++++++++++++++++ \n");
-                System.out.println("\033[31mError al mostrar las llaves\033[30");
+                System.out.println("\033[31mError al mostrar las llaves\033[0m");
                 return null;
             }
         }

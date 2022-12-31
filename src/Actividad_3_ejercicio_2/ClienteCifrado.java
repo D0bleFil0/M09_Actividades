@@ -91,7 +91,7 @@ public class ClienteCifrado {
 
                 }
                 // Pausa el programa
-                System.out.println("\033[35m\nPulse una tecla para continuar...\033[30");
+                System.out.println("\033[35m\nPulse una tecla para continuar...\033[0m");
                 System.in.read();
             }
         } catch (Exception e) {
