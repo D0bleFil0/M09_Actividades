@@ -86,7 +86,7 @@ public class ServidorCifrado {
 
         // Metodo remoto para generar las claves y guardarlas en ficheros
         public String generarclaves() throws RemoteException {
-            String mensaje = "claves generadas correctamente";
+            String mensaje = "¡Claves generadas correctamente!";
             try {
                 // Generamos el par de claves.
                 KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -104,7 +104,7 @@ public class ServidorCifrado {
                 return mensaje;
 
             } catch (Exception e) {
-                mensaje = "\033[31\nError al generar las claves\033[0m";
+                mensaje = "\033[31\n¡Error al generar las claves!\033[0m\n";
                 System.out.println(mensaje);
                 return mensaje;
             }
@@ -141,7 +141,7 @@ public class ServidorCifrado {
                 PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);
                 return publicKey;
             } catch (Exception e) {
-                System.out.println("Error al leer la clave publica");
+                System.out.println("\033[31m¡Error al leer la clave pública!\033[0m");
             }
             return null;
         }
@@ -165,7 +165,7 @@ public class ServidorCifrado {
                 PrivateKey privateKey = keyFactory.generatePrivate(encriptado);
                 return privateKey;
             } catch (Exception e) {
-                System.out.println("Error al leer la clave privada");
+                System.out.println("\033[31m¡Error al leer la clave privada!\033[0m");
             }
             return null;
         }
@@ -187,7 +187,8 @@ public class ServidorCifrado {
 
         // Metodo remoto para encriptar el mensaje guardado en el metodo anterior
         public String encriptar(String frase) throws RemoteException {
-            String error = "\033[31mError al encriptar el mensaje\033[0m";
+            String error = "\033[31m¡Error al encriptar el mensaje!\033[0m"
+            + "\033[31m¡Genera las claves de nuevo!\033[0m";
             try {
                 // Recuperamos la clave publica
                 PublicKey publicKey = leerLlavePublica("clavepublica.key");
@@ -219,7 +220,8 @@ public class ServidorCifrado {
 
         // Metodo remoto para desencriptar el mensaje guardado en base64
         public String desencriptar(String frase) throws RemoteException {
-            String error = "\033[31mError al desencriptar el mensaje\033[0m";
+            String error = "\033[31m¡Error al desencriptar el mensaje!\033[0m"
+            + "\033[31m¡Genera las claves de nuevo!\033[0m";
             try {
                 // Recuperamos la clave privada
                 PrivateKey privateKey = leerLlavePrivada("claveprivada.key");
@@ -255,6 +257,8 @@ public class ServidorCifrado {
 
         // Metodo remoto para mostrar las claves en cliente
         public String[] mostrarclaves() throws RemoteException {
+            String error = "\033[31m¡Error al leer las claves!\033[0m\n"
+            + "\033[31m\n¡Genera las claves de nuevo!\033[0m\n";
             try {
                 // Recuperamos la clave publica
                 PublicKey publicKey = leerLlavePublica("clavepublica.key");
@@ -270,9 +274,9 @@ public class ServidorCifrado {
                 String[] claves = { prublica, privada };
                 return claves;
             } catch (Exception e) {
-                System.out.println("\033[35m\n+++++++++++++++++++++++++++++++++++++++++ \n");
-                System.out.println("\033[31mError al mostrar las claves\033[0m");
-                return null;
+                System.out.println(error);
+                String[] claves = { error };
+                return claves;
             }
         }
     }
