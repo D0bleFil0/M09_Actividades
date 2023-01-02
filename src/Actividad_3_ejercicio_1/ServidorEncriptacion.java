@@ -72,7 +72,7 @@ public class ServidorEncriptacion {
         // Meotodo remoto para el menu, devuelve un String con las opciones
         public String mensajeMenu() throws RemoteException {
             String menu = " ***Cliente Encriptación Asimétrica RSA***\n"
-                    + " \n Para salir del programa, escriba FIN + C\n";
+                    + " \n Para salir del programa, escriba FIN\n";
             return menu;
         }
 
